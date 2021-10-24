@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet, Text, View, Button, TextInput, Alert, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableHighlight} from 'react-native';
-import { SimpleLineIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, Button, TextInput, Alert, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import { loginUser } from '../../_actions/user_actions';
+import { StackActions } from '@react-navigation/native';
+
 
 function LoginScreen({ navigation, route }) {
 
@@ -23,15 +24,23 @@ function LoginScreen({ navigation, route }) {
         }
 
         dispatch(loginUser(body))
-          
+            .then(response => {
+                if(response.payload.loginSuccess){
+                    console.log('success');
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Landing' }]
+                    })
+                } else {
+                    Alert.alert('error');
+                }
+            })
     }
     
     const onPressSignUp = () => {
         navigation.navigate('Register');
     }
 
-    
-        
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
@@ -40,16 +49,15 @@ function LoginScreen({ navigation, route }) {
                         <Text style={styles.loginText}>로그인</Text>
                         <TextInput style={styles.email} placeholder="아이디" onChangeText={onChangeEmail}/>
                         <TextInput style={styles.password} placeholder="비밀번호" secureTextEntry={true} onChangeText={onChangePassword}/>
+                        <TouchableOpacity style={styles.loginBtn} onPress={onPressLogin}>
+                            <Text style={styles.loginBtnText}>로그인</Text>
+                        </TouchableOpacity>
                         <View style={styles.button}>
                             <Button title='회원가입' style={styles.signUpBtn} onPress={onPressSignUp}/>
-                            <TouchableHighlight activeOpacity={0.5} underlayColor="#DDDDDD" onPress={onPressLogin}>
-                                <SimpleLineIcons name="login" size={'28'} color="black" style={styles.loginBtn}/>
-                            </TouchableHighlight>
                         </View>
                     </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-       
     )
 }
 
@@ -105,19 +113,41 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 15,
         marginVertical: 10,
-        fontSize: 18
+        fontSize: 18,
+        marginTop: 0
     },
     button: {
         width: '90%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginTop: 10,
+        marginBottom: -10
     },
     signUpBtn: {
         marginTop: 5
     },
     loginBtn:{
-        marginRight: 10,
-        marginTop: 4
+        backgroundColor: '#2D7EF7',
+        width: '90%',
+        paddingTop: 13,
+        paddingBottom: 13,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 1,
+            height: 2
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 3.84,
+        elevation: 3
+    },
+    loginBtnText: {
+       fontSize: 18,
+       color: 'white',
+       
     }
 
 });
