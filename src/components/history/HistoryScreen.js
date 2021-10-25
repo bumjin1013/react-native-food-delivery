@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
 import { grey } from 'chalk';
 
-const HistoryScreen = ({ navigation }) => {
+const HistoryScreen = ({ navigation, route }) => {
 
     const dispatch = useDispatch();
     const history = useSelector(state => state.user.userData && state.user.userData.history);
@@ -17,8 +17,8 @@ const HistoryScreen = ({ navigation }) => {
             <View style={styles.history} key={index}>
                 <View style={styles.historyHeader}>
                     <Text style={{ marginLeft: -10 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
-                    <TouchableOpacity style={styles.detailBtn}>
-                        <Text>주문상세</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item})} style={styles.detailBtn}>
+                        <Text style={{ fontSize: 12 }}>주문상세</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.etcBtn}>
                         <Feather name="more-vertical" size={18} color="black" />
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 4,
         borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0'
+        borderBottomColor: '#E0E0E0',
     },
     history: {
         width: '100%',
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-around',
-        alignItems: 'center'
-  
+        alignItems: 'center',
+        marginTop: 10
     },
     time:{
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         width: '20%',
         height: 20,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: '#C0C0C0',
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
