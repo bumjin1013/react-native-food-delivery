@@ -46,7 +46,7 @@ export default function(state={},action){
             }
         case GET_HISTORY:
             return{
-                ...state, userData: action.payload
+                ...state, history: action.payload
             }
         default:
             return state;

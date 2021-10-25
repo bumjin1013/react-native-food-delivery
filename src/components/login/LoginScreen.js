@@ -68,12 +68,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#99ccff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     login: {
         backgroundColor: 'white',
         width: '90%',
