@@ -5,13 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Divider from '../../utils/Divider';
 
+
 const DetailHistoryScreen = ({ navigation, route }) => {
 
     const [history, setHistory] = useState(route.params.history && route.params.history)
 
     const renderMenu = history.menu && history.menu.map((menu, index) => {
         return (
-            <View style={styles.menu}>
+            <View style={styles.menu} key={index}>
                 <Text>{menu.name + ' ' + menu.quantity + '개'}</Text>
                 <Text>{menu.price  * menu.quantity + '원'}</Text>
             </View>
@@ -108,8 +109,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 15,
-        marginTop: 12
+        fontSize: 18,
+        marginTop: 35
     },
     detailContainer: {
         flex: 9,

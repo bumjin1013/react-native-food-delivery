@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { getHistory } from '../../_actions/user_actions';
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
-import { grey } from 'chalk';
+import BottomSheet from 'react-native-simple-bottom-sheet';
 
 const HistoryScreen = ({ navigation, route }) => {
 
     const dispatch = useDispatch();
     const history = useSelector(state => state.user.userData && state.user.userData.history);
+    const panelRef = useRef(null);
 
     const renderHistory = history && history.slice(0).reverse().map((item, index) => {
 
@@ -20,9 +21,11 @@ const HistoryScreen = ({ navigation, route }) => {
                     <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item})} style={styles.detailBtn}>
                         <Text style={{ fontSize: 12 }}>주문상세</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.etcBtn}>
+                    <TouchableOpacity onPress={() => panelRef.current.togglePanel()} style={styles.etcBtn}>
                         <Feather name="more-vertical" size={18} color="black" />
                     </TouchableOpacity>
+                   
+                    
                 </View>
                 <View style={styles.historyContents}>
                     <Text>{item.storeName}</Text>
@@ -43,6 +46,11 @@ const HistoryScreen = ({ navigation, route }) => {
                     {history ? renderHistory : null}
                 </ScrollView>
             </View>
+            <BottomSheet ref={ref => panelRef.current = ref} sliderMinHeight={0} isOpen={false}>
+                <Text style={{paddingVertical: 20}}>
+                    Some random content
+                    </Text>
+            </BottomSheet>
         </View>
     )
 }
@@ -63,8 +71,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 15,
-        marginTop: 12
+        fontSize: 18,
+        marginTop: 35
     },
     scroll: {
         

@@ -14,7 +14,8 @@ const MyPageScreen = ({ navigation }) => {
             </View>
             <View style={styles.nickname}>
                 <AntDesign name="user" size={24} color="black" style={{marginRight: 15, fontSize: 30}}/>
-                <Text style={styles.nicknameText}>안녕하세요, {user.nickname}님</Text>
+                <Text style={styles.nicknameText}>안녕하세요, {user.nickname}님 </Text>
+                <AntDesign name="right" size={15} color="black" />
             </View>
             <View style={styles.component}>
                 <TouchableOpacity style={styles.heart}>
@@ -25,7 +26,7 @@ const MyPageScreen = ({ navigation }) => {
                     <AntDesign  name="bars" size={24} color="black" />
                     <Text style={styles.componentText}>주문내역</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.review}>
+                <TouchableOpacity onPress={() => navigation.navigate('Review')} style={styles.review}>
                     <Ionicons name="chatbox-ellipses-outline" size={24} color="black" />
                     <Text style={styles.componentText}>리뷰관리</Text>
                 </TouchableOpacity>
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 15,
-        marginTop: 12
+        fontSize: 18,
+        marginTop: 35
     },
     nickname: {
         flex: 1.2,

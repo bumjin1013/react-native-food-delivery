@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     address: {
-        marginTop: 12
+        fontSize: 15,
+        marginTop: 35
     },
     tab: {
         flex: 0.7,

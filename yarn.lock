@@ -5673,6 +5673,13 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
+"react-native-ratings@^8.1.0":
+  "integrity" "sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g=="
+  "resolved" "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-8.1.0.tgz"
+  "version" "8.1.0"
+  dependencies:
+    "lodash" "^4.17.15"
+
 "react-native-reanimated@^2.2.3":
   "integrity" "sha512-d+BV39Jp4Om0ZkgVjop672/004ytlTfDT01EloO3HFZs9wR2QTuCjekq8yi3xl0G2xGZKd4DXhvqabIa7OnMYA=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.3.tgz"
@@ -5701,6 +5708,18 @@
   "version" "3.8.0"
   dependencies:
     "warn-once" "^0.1.0"
+
+"react-native-simple-bottom-sheet@^1.0.3":
+  "integrity" "sha512-ulg7NOfVbFxJxvTLwQUbtEOW4HLfyMchgnVjmjDGfoMF/Gr2Kx4YJjDXA394Ub78hN8/R2URStvVxh6Sy5TbAw=="
+  "resolved" "https://registry.npmjs.org/react-native-simple-bottom-sheet/-/react-native-simple-bottom-sheet-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "prop-types" "^15.7.2"
+
+"react-native-stars@^1.2.2":
+  "integrity" "sha512-ROoluqPqv93ycUV3Mwf/p1fFW2TOcb6juhGrMb5oNYYTa0aTe4WgnboipNWLe5viDlC8XYLS+g5WpZBvCzwFkw=="
+  "resolved" "https://registry.npmjs.org/react-native-stars/-/react-native-stars-1.2.2.tgz"
+  "version" "1.2.2"
 
 "react-native-web@~0.13.12":
   "integrity" "sha512-WR/0ECAmwLQ2+2cL2Ur+0/swXFAtcSM0URoADJmG6D4MnY+wGc91JO8LoOTlgY0USBOY+qG/beRrjFa+RAuOiA=="
