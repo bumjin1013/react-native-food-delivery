@@ -5,6 +5,7 @@ import { getHistory } from '../../_actions/user_actions';
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
 import BottomSheet from 'react-native-simple-bottom-sheet';
+import { AntDesign } from '@expo/vector-icons';
 
 const HistoryScreen = ({ navigation, route }) => {
 
@@ -17,20 +18,29 @@ const HistoryScreen = ({ navigation, route }) => {
         return (
             <View style={styles.history} key={index}>
                 <View style={styles.historyHeader}>
-                    <Text style={{ marginLeft: -10 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item})} style={styles.detailBtn}>
+                    <Text style={{ marginLeft: -5 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item })} style={styles.detailBtn}>
                         <Text style={{ fontSize: 12 }}>주문상세</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => panelRef.current.togglePanel()} style={styles.etcBtn}>
                         <Feather name="more-vertical" size={18} color="black" />
                     </TouchableOpacity>
-                   
-                    
                 </View>
                 <View style={styles.historyContents}>
-                    <Text>{item.storeName}</Text>
+                    <TouchableOpacity style={styles.storeName}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15}}>{item.storeName}</Text>
+                        <AntDesign name="right" size={12} color="black" />
+                    </TouchableOpacity>
                     <Text>{item.menu.length > 1 ? item.menu[0].name + '외 ' + (item.menu.length - 1) + '개' : item.menu[0].name}</Text>
                 </View>
+                {item.reviewAuth 
+                    ? 
+                    <TouchableOpacity style={styles.createReviewBtn}>
+                        <Text style={{ fontSize: '15', color: 'white', }}>리뷰 작성하기</Text>
+                    </TouchableOpacity>
+                    :
+                    null
+                }
                 
             </View>
         )
@@ -49,7 +59,7 @@ const HistoryScreen = ({ navigation, route }) => {
             <BottomSheet ref={ref => panelRef.current = ref} sliderMinHeight={0} isOpen={false}>
                 <Text style={{paddingVertical: 20}}>
                     Some random content
-                    </Text>
+                </Text>
             </BottomSheet>
         </View>
     )
@@ -90,7 +100,7 @@ const styles = StyleSheet.create({
     },
     history: {
         width: '100%',
-        height: 150,
+        height: 'auto',
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: '#E0E0E0',
@@ -103,9 +113,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         marginTop: 10
-    },
-    time:{
-
     },
     detailBtn: {
         width: '20%',
@@ -121,6 +128,27 @@ const styles = StyleSheet.create({
         marginRight: -10
     },
     historyContents: {
-        flex: 4
+        flex: 4,
+        margin: 15,
+        marginTop: 10
+    },
+    storeName: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5
+    },
+    createReviewBtn: {
+        borderWidth: 1,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom: 15,
+        marginRight: 15,
+        marginLeft: 15,
+        borderColor: '#66B2FF',
+        backgroundColor: '#66B2FF'
+
     }
 })

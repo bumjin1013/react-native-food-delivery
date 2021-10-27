@@ -43,8 +43,9 @@ const ReviewScreen = () => {
                     
                 </View>
             )
-        } else {}
-        
+        } else {
+            null
+        }
     })
 
     return (
@@ -127,7 +128,8 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 11,
         overflow: 'hidden',
-        marginRight: 5
+        marginRight: 5,
+        height: 25,
     },
     menuBox: {
         marginTop: 15,
