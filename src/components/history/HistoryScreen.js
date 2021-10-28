@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { getHistory } from '../../_actions/user_actions';
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
@@ -41,23 +41,15 @@ const HistoryScreen = ({ navigation, route }) => {
                 </View>
 
                 {/* 리뷰 작성 모달 창*/}
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-                >
-                    <View style={styles.centeredView}>
+                <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible)}}>
+                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.centeredView}>
                         <View style={styles.modalView}>
                             <View style={styles.closeBtn}>
                                 <TouchableOpacity onPress={() => setModalVisible(false)}>
                                     <AntDesign name="close" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.rates}>
+                            <View style={styles.reviewContents}>
                                 <Text style={styles.modalText}>음식은 어떠셨나요?</Text>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold'}}>{item.storeName}</Text>
                                 <Text style={{ paddingTop: 5}}>{item.menu.length > 1 ? item.menu[0].name + '외 ' + (item.menu.length - 1) + '개' : item.menu[0].name}</Text>
@@ -69,23 +61,34 @@ const HistoryScreen = ({ navigation, route }) => {
                                         selectedStar={(rating) => onStarRatingPress(rating)}
                                         starSize={25}
                                         fullStarColor={'gold'}
+                                        emptyStarColor={'#F0F0F0'}
                                     />
                                 </View>
-                                <TextInput style={styles.textInput}/>
-
-                               
+                                <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                                    <TextInput style={styles.textInput} multiline='true' placeholder='리뷰를 작성해주세요'/>
+                                </TouchableWithoutFeedback>
+                            </View>
+                            <View style={styles.modalBtn}>
+                                <TouchableOpacity style={styles.cancel}>
+                                    <Text >취소</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.submit}>
+                                    <Text >확인</Text>
+                                </TouchableOpacity>
                             </View>
                             
-                            
+
                         </View>
-                    </View>
+    
+                    </KeyboardAvoidingView>
                 </Modal>
+         
                
                 {/* 리뷰 권한이 있는 경우 리뷰 작성 버튼 */}
                 {item.reviewAuth 
                     ? 
                     <TouchableOpacity onPress={() =>  setModalVisible(true)} style={styles.createReviewBtn}>
-                        <Text style={{ fontSize: '15', color: '#FFFFFF' }} >리뷰 작성하기</Text>
+                        <Text style={{ fontSize: 15, color: '#FFFFFF' }} >리뷰 작성하기</Text>
                     </TouchableOpacity>
                     :
                     null}
@@ -125,7 +128,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue'
     },
     headerText: {
         fontWeight: 'bold',
@@ -214,8 +216,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,
-      },
-      modalView: {
+    },
+    modalView: {
         width: '92%',
         height: 500,
         margin: 20,
@@ -224,46 +226,76 @@ const styles = StyleSheet.create({
         padding: 15,
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+            width: 0,
+            height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
-      },
-      button: {
+    },
+    button: {
         borderRadius: 20,
         padding: 10,
         elevation: 2
-      },
-      buttonOpen: {
+    },
+    buttonOpen: {
         backgroundColor: "#F194FF",
-      },
-      buttonClose: {
+    },
+    buttonClose: {
         backgroundColor: "#2196F3",
-      },
-      textStyle: {
+    },
+    textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
-      },
-      modalText: {
+    },
+    modalText: {
         marginTop: -10,
         marginBottom: 10,
         fontSize: 20,
         textAlign: "center"
-      },
-      closeBtn: {
+    },
+    closeBtn: {
         
-      },
-      rates: {
-          alignItems: 'center'
-      },
-      textInput: {
-          backgroundColor: '#F0F0F0',
-          width: '100%',
-          height: 200,
-          borderRadius: 15
-      }
-    
+    },
+    reviewContents: {
+        alignItems: 'center'
+    },
+    textInput: {
+        backgroundColor: '#F0F0F0',
+        width: '100%',
+        height: 150,
+        borderRadius: 15,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+        paddingTop: 15,
+        paddingBottom: 15,
+        marginTop: 15,
+    },
+    modalBtn: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 15,
+    },
+    cancel: {
+        borderWidth: 1,
+        width: '48%',
+        padding: 20,
+        borderColor: '#C0C0C0',
+        borderRadius: 15,
+        color: 'red',
+        alignItems: 'center',
+    },
+    submit: {
+        borderWidth: 0,
+        width: '48%',
+        padding: 20,
+        backgroundColor: '#66B2FF',
+        borderRadius: 15,
+        color: 'white',
+        overflow: 'hidden',
+        alignItems: 'center',
+    }
 })
