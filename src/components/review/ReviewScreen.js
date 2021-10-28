@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import StarRating from 'react-native-star-rating';
 
 const ReviewScreen = () => {
 
@@ -31,9 +32,20 @@ const ReviewScreen = () => {
             return (
                 <View style={styles.review} key={index}>
                     <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15}}>{item.storeName}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20}}>{item.storeName}</Text>
                         <AntDesign name="right" size={12} color="black" />
                     </TouchableOpacity>
+                    <View style={styles.star}>
+                        <StarRating
+                            disabled={true}
+                            maxStars={5}
+                            rating={item.review[0].star}
+                            selectedStar={(rating) => onStarRatingPress(rating)}
+                            starSize={20}
+                            fullStarColor={'gold'}
+                        />
+                    </View>
+                    <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>                    
                     <View style={{ marginTop: 15}}>
                         <Text>{item.review[0].contents}</Text>
                     </View>
@@ -58,7 +70,7 @@ const ReviewScreen = () => {
                         <Text style={{ fontSize: 18, fontWeight: 'bold'}}>내가 쓴 총 리뷰 {review} 개</Text>
                     </View>
                     <View style={styles.divider}/>
-                    <View>
+                    <View style={{ height: '100%'}}>
                         {renderReview}
                     </View>
                 </ScrollView>
@@ -94,16 +106,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderTopWidth: 5,
         borderTopColor: '#E0E0E0',
-        borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0',
     },
     scroll: {
         width: '100%',
         height: '100%',
+        flex: 9
     },
     myReview: {
         marginTop: 15,
-        marginLeft: 15
+        marginLeft: 15,
     },
     divider: {
         borderBottomColor: '#E0E0E0',
@@ -116,7 +127,6 @@ const styles = StyleSheet.create({
     },
     review: {
         margin: 15
-
     },
     menuText: {
         backgroundColor: '#E0E0E0',
@@ -133,6 +143,16 @@ const styles = StyleSheet.create({
     menuBox: {
         marginTop: 15,
         flexDirection: 'row'
+    },
+    star:{ 
+        alignItems: 'flex-start',
+        marginTop: 5
+    },
+    image: {
+        marginTop: 10,
+        width: '100%',
+        height: 250,
+        borderRadius: 15
     }
     
 })

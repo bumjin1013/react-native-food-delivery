@@ -24,7 +24,7 @@ const HistoryScreen = ({ navigation, route }) => {
         return (
             <View style={styles.history} key={index}>
                 <View style={styles.historyHeader}>
-                    <Text style={{ marginLeft: -5 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
+                    <Text style={{ marginLeft: -6 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item })} style={styles.detailBtn}>
                         <Text style={{ fontSize: 12 }}>주문상세</Text>
                     </TouchableOpacity>
@@ -85,7 +85,7 @@ const HistoryScreen = ({ navigation, route }) => {
                 {item.reviewAuth 
                     ? 
                     <TouchableOpacity onPress={() =>  setModalVisible(true)} style={styles.createReviewBtn}>
-                        <Text style={{ fontSize: '15', color: 'white' }} >리뷰 작성하기</Text>
+                        <Text style={{ fontSize: '15', color: '#FFFFFF' }} >리뷰 작성하기</Text>
                     </TouchableOpacity>
                     :
                     null}
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 4,
+        borderTopWidth: 5,
         borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
@@ -148,10 +148,8 @@ const styles = StyleSheet.create({
     history: {
         width: '100%',
         height: 'auto',
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
         borderColor: '#E0E0E0',
-        borderBottomWidth: 4,
+        borderBottomWidth: 5,
     },
     historyHeader: {
         flex: 1,
