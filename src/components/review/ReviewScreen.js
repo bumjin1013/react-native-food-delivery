@@ -47,7 +47,7 @@ const ReviewScreen = () => {
                     </View>
                     <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>                    
                     <View style={{ marginTop: 15}}>
-                        <Text>{item.review[0].contents}</Text>
+                        <Text style={{ fontSize: 17}}>{item.review[0].contents}</Text>
                     </View>
                     <View style={styles.menuBox}>  
                         {renderMenu}
