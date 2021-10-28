@@ -224,7 +224,5 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 15,
         borderColor: '#A0A0A0',
-       
-
     }
 })

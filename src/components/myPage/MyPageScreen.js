@@ -10,7 +10,11 @@ const MyPageScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                    <AntDesign  name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
                 <Text style={styles.headerText}>My Page</Text>
+                <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.nickname}>
                 <AntDesign name="user" size={24} color="black" style={{marginRight: 15, fontSize: 30}}/>
@@ -52,10 +56,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
     },
+    backBtn: {
+        flex: 1,
+        marginTop: 30,
+        padding: 15
+    },
     headerText: {
+        flex: 8,
         fontWeight: 'bold',
         fontSize: 18,
-        marginTop: 35
+        marginTop: 35,
+        textAlign: 'center',
+        marginLeft: -30
     },
     nickname: {
         flex: 1.2,

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'rea
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
 
-const ReviewScreen = () => {
+const ReviewScreen = ({ navigation }) => {
 
     const history = useSelector(state => state.user.userData && state.user.userData.history);
 
@@ -43,6 +43,7 @@ const ReviewScreen = () => {
                             selectedStar={(rating) => onStarRatingPress(rating)}
                             starSize={20}
                             fullStarColor={'gold'}
+                            emptyStarColor={'#E0E0E0'}
                         />
                     </View>
                     <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>                    
@@ -62,7 +63,11 @@ const ReviewScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
                 <Text style={styles.headerText}>리뷰관리</Text>
+                <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.reviewContainer}>
                 <ScrollView style={styles.scroll}>
@@ -89,14 +94,22 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        width: '100%',
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        flexDirection: 'row',
+    },
+    backBtn: {
+        flex: 1,
+        marginTop: 30,
+        padding: 15
     },
     headerText: {
+        flex: 8,
         fontWeight: 'bold',
         fontSize: 18,
-        marginTop: 35
+        marginTop: 35,
+        textAlign: 'center',
+        marginLeft: -30
     },
     reviewContainer: {
         flex: 9,

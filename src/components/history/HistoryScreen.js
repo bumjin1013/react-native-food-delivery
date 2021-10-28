@@ -65,7 +65,7 @@ const HistoryScreen = ({ navigation, route }) => {
                                     />
                                 </View>
                                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                                    <TextInput style={styles.textInput} multiline='true' placeholder='리뷰를 작성해주세요'/>
+                                    <TextInput style={styles.textInput} multiline={true} placeholder='리뷰를 작성해주세요'/>
                                 </TouchableWithoutFeedback>
                             </View>
                             <View style={styles.modalBtn}>
@@ -76,10 +76,7 @@ const HistoryScreen = ({ navigation, route }) => {
                                     <Text >확인</Text>
                                 </TouchableOpacity>
                             </View>
-                            
-
-                        </View>
-    
+                     </View>
                     </KeyboardAvoidingView>
                 </Modal>
          
@@ -99,7 +96,11 @@ const HistoryScreen = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                    <AntDesign  name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
                 <Text style={styles.headerText}>주문내역</Text>
+                <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.historyContainer}>
                 <ScrollView style={styles.scroll}>
@@ -125,14 +126,22 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        width: '100%',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    backBtn: {
+        flex: 1,
+        marginTop: 30,
+        padding: 15
     },
     headerText: {
+        flex: 8,
         fontWeight: 'bold',
         fontSize: 18,
-        marginTop: 35
+        marginTop: 35,
+        textAlign: 'center',
+        marginLeft: -30
     },
     scroll: {
         width: '100%',
