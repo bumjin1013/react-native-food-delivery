@@ -118,13 +118,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     header: {
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'blue'
     },
     headerText: {
         fontWeight: 'bold',
@@ -132,7 +133,8 @@ const styles = StyleSheet.create({
         marginTop: 35
     },
     scroll: {
-        
+        width: '100%',
+        height: '100%',
     },
     historyContainer: {
         flex: 9,
