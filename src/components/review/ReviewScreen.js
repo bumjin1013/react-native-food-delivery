@@ -10,7 +10,7 @@ const ReviewScreen = () => {
     let review = 0;
 
     //history 데이터에서 review를 작성한 history의 개수를 세는 함수 
-    const countReview = history && history.map((item, index) => {
+    const countReview = history && history.map((item) => {
         if(item.review.length !== 0) {
             review ++;
         }
@@ -20,9 +20,9 @@ const ReviewScreen = () => {
     const renderReview = history && history.map((item, index) => {
 
         //주문한 메뉴 랜더링
-        const renderMenu = item.menu.map((menu) => {
+        const renderMenu = item.menu.map((menu, index) => {
             return(
-                <Text style={styles.menuText}>{menu.name}</Text>
+                <Text style={styles.menuText} key={index}>{menu.name}</Text>
             )
         })
 
@@ -40,7 +40,6 @@ const ReviewScreen = () => {
                     <View style={styles.menuBox}>  
                         {renderMenu}
                     </View>
-                    
                 </View>
             )
         } else {
