@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import Category from './Category/Category';
 
 function LandingScreen({ navigation }) {
 
@@ -20,8 +21,9 @@ function LandingScreen({ navigation }) {
                 <Text> 배너 </Text>
             </View>
             <View style={styles.category}>
-                <Button title="치킨" />
-                <Button title="한식"/>
+                <ScrollView>
+                    <Category />
+                </ScrollView>
             </View>
             <View style={styles.bottomTab}>
                 <TouchableOpacity>
