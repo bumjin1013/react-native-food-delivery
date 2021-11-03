@@ -15,7 +15,12 @@ function LandingScreen({ navigation }) {
                 <Text style={styles.address}> {user.address.address} </Text>
             </View>
             <View style={styles.tab}>
-                <Text> 탭 </Text>
+                <TouchableOpacity>
+                    <Text style={styles.tabBtn}>배달</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text style={styles.tabBtn}>포장</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.banner}>
                 <Text> 배너 </Text>
@@ -32,7 +37,7 @@ function LandingScreen({ navigation }) {
                 <TouchableOpacity>
                     <AntDesign name="hearto" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('History')}>
                     <AntDesign name="bars" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
@@ -63,13 +68,17 @@ const styles = StyleSheet.create({
     },
     tab: {
         flex: 0.7,
-        backgroundColor: 'black',
-        width: '100%'
+        borderTopWidth: 1,
+        borderColor: '#E0E0E0',
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     banner: {
         flex: 1.6,
         width: '100%',
-        backgroundColor: 'yellow'
+        backgroundColor: 'gray'
     },
     category: {
         flex: 5.7
@@ -91,5 +100,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 5,
         elevation: 5,
+        paddingBottom: 10,
+    },
+    tabBtn: {
+        borderWidth: 1,
+        borderRadius: 15,
+        width: '100%',
+        borderColor: '#C0C0C0',
+        padding: 13,
     }
 })

@@ -1,7 +1,10 @@
 import React from 'react'
 import { StyleSheet, Image, View, TouchableOpacity, Text, ScrollView } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
-const Category = ({ LandingScreen }) => {
+const Category = ({ StoreList }) => {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.iconContainer}>
             <View style={styles.firstLine}>

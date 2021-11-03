@@ -1,17 +1,22 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
+import { AntDesign } from '@expo/vector-icons';
+import TapScreen from './Section/TapScreen';
+
 
 const StoreListScreen = ({ navigation }) => {
+    
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.address}> {user.address.address} </Text>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.headerText}>상점</Text>
+                <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.tab}>
-                <Text> 탭 </Text>
-            </View>
-            <View>
-                <Text>가게 리스트</Text>
+               <TapScreen />
             </View>
         </View>
     )
@@ -29,14 +34,29 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    headerText: {
+        flex: 8,
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginTop: 35,
+        textAlign: 'center',
+        marginLeft: -30,
+    
+    },
+    backBtn: {
+        flex: 1,
+        marginTop: 30,
+        padding: 15
     },
     tab: {
-        flex: 0.7,
+        flex: 9,
         backgroundColor: 'black',
         width: '100%'
     },
     storeContainer: {
-        flex: 9
+        flex: 8.3
     }
 })
