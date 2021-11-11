@@ -5,10 +5,12 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { AntDesign } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
-const TapScreen = (props) => {
+const TabScreen = () => {
+    const navigation = useNavigation();
 
     const userAddress = useSelector(state => state.user.userData && state.user.userData.isAuth ? state.user.userData.address.address : null);
     const [storeList, setStoreList] = useState();
@@ -25,7 +27,7 @@ const TapScreen = (props) => {
         const filterStore = storeList && storeList.map(store => {
             if(store.category === category) {
                 return (
-                    <TouchableOpacity style={styles.store} key={store._id}>
+                    <TouchableOpacity style={styles.store} key={store._id} onPress={() => navigation.navigate('DetailStore', {storeId: store._id})}>
                         <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${store.image[0]}`}}/>
                         <Text>{store.title}</Text>
                     </TouchableOpacity>
@@ -231,7 +233,7 @@ const TapScreen = (props) => {
     )
 }
 
-export default TapScreen
+export default TabScreen
 
 const styles = StyleSheet.create({
     tabBarText: {
@@ -244,10 +246,10 @@ const styles = StyleSheet.create({
         borderColor: '#E0E0E0'
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         borderWidth: 0,
-        borderRadius: 30,
+        borderRadius: 15,
         margin: 15
     
     }

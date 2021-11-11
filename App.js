@@ -18,7 +18,7 @@ import HistoryScreen from './src/components/history/HistoryScreen';
 import DetailHistoryScreen from './src/components/history/detailHistory/DetailHistoryScreen';
 import ReviewScreen from './src/components/review/ReviewScreen';
 import StoreListScreen from './src/components/storeList/StoreListScreen';
-import detailStoreScreen from './src/components/detailStore/detailStoreScreen';
+import DetailStoreScreen from './src/components/detailStore/DetailStoreScreen';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
@@ -47,7 +47,7 @@ export default function App() {
         <Stack.Screen name="DetailHistory" component={Auth(DetailHistoryScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Review" component={Auth(ReviewScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="StoreList" component={Auth(StoreListScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="DetailStore" component={Auth(detailStoreScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="DetailStore" component={Auth(DetailStoreScreen, null)} options={{ headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

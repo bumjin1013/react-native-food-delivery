@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-import TapScreen from './Section/TapScreen';
+import TabScreen from './Section/TabScreen';
 
 
 const StoreListScreen = ({ navigation }) => {
@@ -16,7 +16,7 @@ const StoreListScreen = ({ navigation }) => {
                 <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.tab}>
-               <TapScreen />
+               <TabScreen />
             </View>
         </View>
     )
