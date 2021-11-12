@@ -240,17 +240,19 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     store: {
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
+        borderTopWidth: 0.2,
+        borderBottomWidth: 0.2,
         flexDirection: 'row',
-        borderColor: '#E0E0E0'
+        borderColor: '#E0E0E0',
+        backgroundColor: 'white'
     },
     image: {
         width: 80,
         height: 80,
-        borderWidth: 0,
+        borderWidth: 0.2,
         borderRadius: 15,
-        margin: 15
+        margin: 15,
+        borderColor: '#C0C0C0'
     
     }
 })
