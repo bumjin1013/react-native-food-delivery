@@ -54,13 +54,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     header: {
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     address: {
         fontSize: 15,
@@ -73,7 +75,8 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white'
     },
     banner: {
         flex: 1.6,
@@ -81,7 +84,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray'
     },
     category: {
-        flex: 5.7
+        flex: 5.7,
+        backgroundColor: 'white'
     },
     bottomTab: {
         flex: 1,

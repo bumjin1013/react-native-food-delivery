@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import TabScreen from './Section/TabScreen';
 
 
-const StoreListScreen = ({ navigation }) => {
+const StoreListScreen = ({ navigation, route }) => {
     
     return (
         <View style={styles.container}>
@@ -16,7 +16,7 @@ const StoreListScreen = ({ navigation }) => {
                 <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.tab}>
-               <TabScreen />
+               <TabScreen initialRouteName={route.params.initialRouteName}/>
             </View>
         </View>
     )

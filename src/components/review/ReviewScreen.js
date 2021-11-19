@@ -46,7 +46,10 @@ const ReviewScreen = ({ navigation }) => {
                             emptyStarColor={'#E0E0E0'}
                         />
                     </View>
-                    <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>                    
+                    {item.review[0].image
+                        ? <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>      
+                        : null
+                    }              
                     <View style={{ marginTop: 15}}>
                         <Text style={{ fontSize: 17}}>{item.review[0].contents}</Text>
                     </View>
@@ -90,7 +93,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     header: {
         flex: 1,

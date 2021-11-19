@@ -4,21 +4,23 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import StarRating from 'react-native-star-rating';
 import { AntDesign } from '@expo/vector-icons';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
+
 const Tab = createMaterialTopTabNavigator();
 
 const TabScreen = (props) => {
+    const navigation = useNavigation();
 
     const Menu = () => {
 
         const renderMenu = props.store && props.store.menu.map((menu) => {
             
             return (
-                <TouchableOpacity key={menu._id} style={styles.menu}>
+                <TouchableOpacity key={menu._id} style={styles.menu} onPress={() => navigation.navigate('MenuInfo', {menu: menu, storeId: props.store._id, title: props.store.title})}>
                     <View style={styles.menuText}>
                         <Text style={styles.menuName}>{menu.name}</Text>
                         <Text style={styles.menuPrice}>{menu.price}원</Text>
                     </View>
-                   
                     <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${menu.image[0]}`}}></Image>
                 </TouchableOpacity>
                 
@@ -33,10 +35,41 @@ const TabScreen = (props) => {
     }
 
     const Info = () => {
+
+        const renderDeliveryArea = props.store.deliveryArea&&props.store.deliveryArea.map((item, index) => {
+            
+            return (
+                <Text style={{fontSize: 16, marginRight: 10}}>
+                    {item.gu} {item.ro}
+                </Text>
+            )
+        })
+
         return(
             <ScrollView>
-               
-                
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.title}>가게소개</Text>
+                    <Text style={{fontSize: 16}}>{props.store.description}</Text>
+                </View> 
+                <View style={styles.InfoContainer}>
+                    <Text style={styles.title}>영업정보</Text>
+                    <View style={styles.Container}>
+                        <View style={styles.leftContainer}>
+                            <Text style={{fontSize: 16}}>상호명</Text>
+                            <Text style={{fontSize: 16, marginTop: 12}}>주소</Text>
+                            <Text style={{fontSize: 16, marginTop: 12}}>전화번호</Text>
+                            <Text style={{fontSize: 16, marginTop: 12}}>배달지역</Text>
+                        </View>
+                        <View style={styles.rightContainer}>
+                            <Text style={{fontSize: 16}}>{props.store.title}</Text>
+                            <Text style={{fontSize: 16, marginTop: 10}}>{props.store.address}</Text>
+                            <Text style={{fontSize: 16, marginTop: 10}}>02-123-4567</Text>
+                            <View style={{flexDirection: 'row', marginTop: 10}}>
+                                {renderDeliveryArea}
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </ScrollView>
         )
     }
@@ -65,9 +98,10 @@ const TabScreen = (props) => {
                             </View>
                         </View>
                     </View>
+                    {review.image ? 
                     <View style={{alignItems: 'center'}}>  
                         <Image style={styles.reviewImage} source={{uri: `http://192.168.0.9:5000/${review.image[0]}`}}/>    
-                    </View>
+                    </View> : null}
                     <View style={styles.contents}>
                         <Text style={styles.reviewText}>{review.contents}</Text>
                     </View>
@@ -242,5 +276,34 @@ const styles = StyleSheet.create({
     },
     reviewText: {
         fontSize: 15
+    },
+    descriptionContainer: {
+        backgroundColor: 'white',
+        padding: 15,
+        borderBottomWidth: 1, 
+        borderBottomColor: '#E0E0E0',
+        
+    },
+    InfoContainer: {
+        marginTop: 10,
+        backgroundColor: 'white',
+        padding: 15,
+        borderBottomWidth: 1, 
+        borderBottomColor: '#E0E0E0'
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    leftContainer: {
+        flex: 3
+    },
+    rightContainer: {
+        flex: 7
+    },
+    Container: {
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 })

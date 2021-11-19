@@ -9,7 +9,8 @@ import {
     REMOVE_CART_ITEM,
     UPDATE_ADDRESS,
     UPDATE_HISTORY_STATE,
-    GET_HISTORY
+    GET_HISTORY,
+    CHANGE_QUANTITY
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -115,6 +116,17 @@ export function getHistory() {
 
     return {
         type: GET_HISTORY,
+        payload: request
+    }
+}
+
+//장바구니 상품 수량 변경
+export function changeQuantity(body) {
+    const request = axios.put(`${USER_SERVER}/cart`, body)
+    .then(response => response.data);
+
+    return {
+        type: CHANGE_QUANTITY,
         payload: request
     }
 }

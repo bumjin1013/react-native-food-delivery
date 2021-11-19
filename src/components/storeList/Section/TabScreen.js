@@ -9,7 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
-const TabScreen = () => {
+const TabScreen = (props) => {
+
     const navigation = useNavigation();
 
     const userAddress = useSelector(state => state.user.userData && state.user.userData.isAuth ? state.user.userData.address.address : null);
@@ -22,6 +23,7 @@ const TabScreen = () => {
             })
             .catch((err) => alert(err));
     }, []);
+
     
     const renderStore = (category) => {
         const filterStore = storeList && storeList.map(store => {
@@ -36,11 +38,8 @@ const TabScreen = () => {
                 return (
                     null
                 )
-            } 
-
-            
+            }  
         })
-
         return (
             filterStore
         )
@@ -120,11 +119,12 @@ const TabScreen = () => {
 
     return (
         <Tab.Navigator 
+            initialRouteName= {props.initialRouteName}
             screenOptions={{
                 tabBarScrollEnabled: true,
-                tabBarItemStyle: { width: 70 },
+                tabBarItemStyle: { width: 80 },
                 tabBarStyle: { backgroundColor: '#FFFFFF' },
-
+                
             }}
             style={styles.tabBar}>
             
@@ -204,7 +204,7 @@ const TabScreen = () => {
             options={{
                 tabBarShowLabel: false,
                 tabBarIcon: ({ forcused, color }) => {
-                return <Text style={styles.tabBarText}>일식</Text>;
+                return <Text style={styles.tabBarText}>분식</Text>;
                 },
             }}
             />
@@ -237,7 +237,8 @@ export default TabScreen
 
 const styles = StyleSheet.create({
     tabBarText: {
-        fontSize: 16
+        fontSize: 16,
+        width: '100%'
     },
     store: {
         borderTopWidth: 0.2,

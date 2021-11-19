@@ -8,6 +8,7 @@ export const REMOVE_CART_ITEM = 'remove_cart_item';
 export const UPDATE_ADDRESS = 'update_address';
 export const UPDATE_HISTORY_STATE = 'update_history_state';
 export const GET_HISTORY = 'get_history';
+export const CHANGE_QUANTITY = 'change_quantity';
 
 export const LOGIN_OWNER = 'login_owner';
 export const REGISTER_OWNER = 'register_owner';

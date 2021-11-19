@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
+        backgroundColor: 'white'
     },
     backBtn: {
         flex: 1,
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
         height: 'auto',
         borderColor: '#E0E0E0',
         borderBottomWidth: 5,
+        backgroundColor: 'white'
     },
     historyHeader: {
         flex: 1,

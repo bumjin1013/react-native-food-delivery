@@ -8,7 +8,8 @@ import {
     REMOVE_CART_ITEM,
     UPDATE_ADDRESS,
     UPDATE_HISTORY_STATE,
-    GET_HISTORY
+    GET_HISTORY,
+    CHANGE_QUANTITY
 } from '../_actions/types';
  
 
@@ -37,6 +38,14 @@ export default function(state={},action){
         case GET_CART_ITEMS:
             return { ...state, cartDetail: action.payload }
         case REMOVE_CART_ITEM:
+            return {
+                ...state, 
+                userData: {
+                    ...state.userData,
+                    cart: action.payload      
+                }
+            }
+        case CHANGE_QUANTITY:
             return {
                 ...state, 
                 userData: {

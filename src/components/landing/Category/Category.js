@@ -8,47 +8,47 @@ const Category = ({ StoreList }) => {
     return (
         <View style={styles.iconContainer}>
             <View style={styles.firstLine}>
-                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList')}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Korean'})}>
                     <Image source={require('./Icon/korean.png')} style={styles.icon} />
                     <Text style={styles.iconText}>한식</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Western'})}>
                     <Image source={require('./Icon/western.png')} style={styles.icon}/> 
                     <Text style={styles.iconText}>양식</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Chineese'})}>
                     <Image source={require('./Icon/chineese.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>중식</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Japaneese'})}>
                     <Image source={require('./Icon/japaneese.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>일식</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.secondLine}>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Chicken'})}>
                     <Image source={require('./Icon/chicken.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>치킨</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Pizza'})}>
                     <Image source={require('./Icon/pizza.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>피자</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Burger'})}>
                     <Image source={require('./Icon/burger.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>햄버거</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Bunsick'})}>
                     <Image source={require('./Icon/bunsick.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>분식</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.thirdLine}>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Cafe'})}>
                     <Image source={require('./Icon/dessert.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>카페</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconContainer}>
+                <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('StoreList', {initialRouteName: 'Midnight'})}>
                     <Image source={require('./Icon/midnight.png')} style={styles.icon}/>
                     <Text style={styles.iconText}>야식</Text>
                 </TouchableOpacity>

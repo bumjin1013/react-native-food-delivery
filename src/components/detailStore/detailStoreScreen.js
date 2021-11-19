@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native'
 import axios from 'axios'
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
@@ -22,7 +22,6 @@ const DetailStoreScreen = ({ navigation, route }) => {
             .catch((err) => alert(err));
     }, [])
 
-
     const renderStore = () => {
 
         return (
@@ -42,7 +41,7 @@ const DetailStoreScreen = ({ navigation, route }) => {
                         <Text style={styles.starText}>{star}</Text>
                     </View>
                     <View style={styles.review}>
-                        <Text style={styles.reviewText}>최근리뷰</Text>
+                        <Text style={styles.reviewText}>최근리뷰 {store.review.length}개</Text>
                         <View style={styles.columnDivier}/>
                         <Text style={styles.reviewText}>최근 사장님 댓글</Text>
                     </View>
@@ -64,6 +63,9 @@ const DetailStoreScreen = ({ navigation, route }) => {
                     </View>
                 </View>
                 <TabScreen style={styles.tab} store={store && store} star={star && star}/>
+                <TouchableOpacity style={styles.cart} onPress={() => navigation.navigate('Cart')}>
+                    <AntDesign name="shoppingcart" size={30} color="white" />
+                </TouchableOpacity>
             </View>
         )
     }
@@ -201,5 +203,27 @@ const styles = StyleSheet.create({
     tab: {
         width: '100%',
         height: '100%',
+    },
+    cart: {
+        marginBottom: 30,
+        marginRight: 30,
+        backgroundColor: '#99ccff',
+        width: 60,
+        height: 60,
+        borderWidth: 0,
+        position:'absolute',
+        bottom:0,
+        right: -20,
+        alignSelf:'flex-end',
+        borderRadius: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 3.84,
+        elevation: 5,
     }
 })
