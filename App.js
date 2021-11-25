@@ -21,7 +21,9 @@ import StoreListScreen from './src/components/storeList/StoreListScreen';
 import DetailStoreScreen from './src/components/detailStore/DetailStoreScreen';
 import MenuInfoScreen from './src/components/detailStore/menuInfo/MenuInfoScreen';
 import CartScreen from './src/components/cart/CartScreen';
-
+import OrderScreen from './src/components/order/OrderScreen';
+import Payment from './src/components/payment/Payment';
+import Socket from './src/components/Socket';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 
@@ -52,6 +54,10 @@ export default function App() {
         <Stack.Screen name="DetailStore" component={Auth(DetailStoreScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="MenuInfo" component={Auth(MenuInfoScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Cart" component={Auth(CartScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Order" component={Auth(OrderScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Payment" component={Auth(Payment, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Socket" component={Auth(Socket, null)} options={{ headerShown: false}}/>
+
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

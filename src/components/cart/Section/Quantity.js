@@ -10,7 +10,7 @@ const Quantity = (props) => {
     const dispatch = useDispatch();
     const plusBtn = () => {
         
-        
+        setQuantity(quantity + 1);
         let body = {
             quantity: true,
             menuId: props.menuId
@@ -18,7 +18,7 @@ const Quantity = (props) => {
 
         dispatch(changeQuantity(body))
         .then(response=>{
-            setQuantity(quantity + 1);
+            
           })  
           .catch(err=>{
             console.log(err)
@@ -26,8 +26,8 @@ const Quantity = (props) => {
     }
 
     const minusBtn = () => {
-        
 
+        setQuantity(quantity - 1);
         let body = {
             quantity: false,
             menuId: props.menuId
@@ -35,7 +35,7 @@ const Quantity = (props) => {
 
         dispatch(changeQuantity(body))
         .then(response=>{
-            setQuantity(quantity - 1);
+            
           })  
           .catch(err=>{
             console.log(err)

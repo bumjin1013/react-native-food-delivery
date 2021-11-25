@@ -22,7 +22,7 @@ const MyPageScreen = ({ navigation }) => {
                 <AntDesign name="right" size={15} color="black" />
             </View>
             <View style={styles.component}>
-                <TouchableOpacity style={styles.heart}>
+                <TouchableOpacity style={styles.heart} onPress={() => navigation.navigate('Socket')}>
                     <AntDesign name="hearto" size={24} color="red" />
                     <Text style={styles.componentText}>찜</Text>
                 </TouchableOpacity>

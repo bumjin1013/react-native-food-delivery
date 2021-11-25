@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector,  } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { getCartItems } from '../../_actions/user_actions';
 import Quantity from './Section/Quantity';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-
+import { Avatar, Badge, Icon, withBadge } from 'react-native-elements'
+import { removeCartItem } from '../../_actions/user_actions';
 
 const CartScreen = ({ navigation }) => {
 
@@ -13,23 +14,36 @@ const CartScreen = ({ navigation }) => {
 
     useEffect(() => {
         dispatch(getCartItems());
-    }, [])
+    }, [cart])
 
-    const cart = useSelector(state => state.user.cartDetail && state.user.cartDetail);
+    const cart = useSelector(state => state.user.userData && state.user.userData.cart);
     const [checked, setChecked] = useState(0);
-
+    let totalPrice = 0;
     const radio_props = [
         {label: '배달', value: 0 },
         {label: '포장', value: 1 }
     ];
+
       
     const rednerMenu = cart&&cart.map((item) => {
+
+        totalPrice += item.price * item.quantity;
+
+        const deleteMenu = () => {
+
+            let body = {
+                menuId: item.id
+            }
+            dispatch(removeCartItem(body))
+                .then()
+                .catch()
+        }
 
         return (
             <View style={styles.menu} key={item.id}>
                 <View style={styles.menuHeader}>
                     <Text style={styles.menuName}>{item.name}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={deleteMenu}>
                         <AntDesign name="close" size={24} color="black" />
                     </TouchableOpacity>
                 </View> 
@@ -39,6 +53,7 @@ const CartScreen = ({ navigation }) => {
         )
     })
 
+    if(cart.length > 0){
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -77,12 +92,29 @@ const CartScreen = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View style={styles.orderContainer}>
-                <TouchableOpacity style={styles.orderBtn}>
-                    <Text style={styles.orderText}>주문하기</Text>
+                <TouchableOpacity style={styles.orderBtn} onPress={() => navigation.navigate('Order', {totalPrice: totalPrice})}>
+                    <Badge value={cart ? cart.length : null} status="primary" size="large" style={styles.badge}/>
+                    <Text style={styles.orderText}>{totalPrice}원 주문하기</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
+    } else {
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                        <AntDesign name="arrowleft" size={24} color="black" />
+                    </TouchableOpacity>
+                    <Text style={styles.headerText}>장바구니</Text>
+                    <View style={{ flex: 1 }}/>
+                </View>
+                <View style={styles.imageContainer}>
+                    <Image source={require('./Section/empty.jpg')} style={styles.image} resizeMethod='contain'/>
+                </View>
+            </View>
+        )
+    }
  
 }
 
@@ -196,11 +228,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         height: 40,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
     },
     orderText: {
         fontSize: 18,
         color: 'white', 
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginLeft: 10
+    },
+    badge: {
+        backgroundColor: 'blue',
+    },
+    imageContainer: {
+        flex: 9,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    image: {
+        width: 400,
+        height: 400
     }
 })
