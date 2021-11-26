@@ -10,7 +10,9 @@ import {
    ADD_COMMENTS,
    ADD_DELIVERY_AREA,
    GET_DELIVERY_AREA,
-   DELETE_DELIVERY_AREA
+   DELETE_DELIVERY_AREA,
+   ADD_HEART_STORE,
+   DELETE_HEART_STORE
 } from '../_actions/types';
  
 
@@ -40,6 +42,10 @@ export default function(state={},action){
             return {...state, area: action.payload}
         case DELETE_DELIVERY_AREA:
             return {...state, area: action.payload}
+        case ADD_HEART_STORE:
+            return {...state}
+        case DELETE_HEART_STORE:
+            return {...state}
         default:
             return state;
     }

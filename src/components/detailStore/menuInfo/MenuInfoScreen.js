@@ -37,7 +37,8 @@ const MenuInfoScreen = ({ navigation, route }) => {
             price: menu.price,
             image: menu.image,
             storeId: storeId,
-            storeName: storeName
+            storeName: storeName,
+            storeImage: route.params.storeImage
         }
 
         dispatch(addToCart(body));

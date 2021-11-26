@@ -11,7 +11,9 @@ import {
     ADD_COMMENTS,
     ADD_DELIVERY_AREA,
     GET_DELIVERY_AREA,
-    DELETE_DELIVERY_AREA
+    DELETE_DELIVERY_AREA,
+    ADD_HEART_STORE,
+    DELETE_HEART_STORE
 } from './types';
 import { STORE_SERVER } from '../components/Config.js';
 
@@ -136,6 +138,28 @@ export function deleteDeliveryArea(body){
     
     return {
         type: DELETE_DELIVERY_AREA,
+        payload: request
+    }
+}
+
+export function addHeartStore(body){
+
+    const request = axios.post(`${STORE_SERVER}/heart`, body)
+        .then(response => response.data);
+    
+    return {
+        type: ADD_HEART_STORE,
+        payload: request
+    }
+}
+
+export function deleteHeartStore(body){
+
+    const request = axios.delete(`${STORE_SERVER}/heart`, { data: body })
+        .then(response => response.data);
+    
+    return {
+        type: DELETE_HEART_STORE,
         payload: request
     }
 }

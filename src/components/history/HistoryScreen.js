@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
-import { getHistory } from '../../_actions/user_actions';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Image } from 'react-native';
 import moment from 'moment';
 import { Feather } from '@expo/vector-icons';
 import BottomSheet from 'react-native-simple-bottom-sheet';
@@ -21,10 +20,12 @@ const HistoryScreen = ({ navigation, route }) => {
     }
 
     const renderHistory = history && history.slice(0).reverse().map((item, index) => {
+
         return (
             <View style={styles.history} key={index}>
+                
                 <View style={styles.historyHeader}>
-                    <Text style={{ marginLeft: -6 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
+                    <Text style={{ marginLeft: -10 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item })} style={styles.detailBtn}>
                         <Text style={{ fontSize: 12 }}>주문상세</Text>
                     </TouchableOpacity>
@@ -33,11 +34,15 @@ const HistoryScreen = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.historyContents}>
-                    <TouchableOpacity style={styles.storeName}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15}}>{item.storeName}</Text>
-                        <AntDesign name="right" size={12} color="black" />
-                    </TouchableOpacity>
-                    <Text>{item.menu.length > 1 ? item.menu[0].name + '외 ' + (item.menu.length - 1) + '개' : item.menu[0].name}</Text>
+                    <Image style={styles.storeImage} source={{uri: `http://192.168.0.9:5000/${item.menu[0].storeImage[0]}`}}/> 
+                    <View>
+                        <TouchableOpacity style={styles.storeName} onPress={() => navigation.navigate('DetailStore', {storeId: item.menu[0].storeId})}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10}}>{item.storeName}</Text>
+                            <AntDesign name="right" size={15} color="black" />
+                        </TouchableOpacity>
+                        <Text style={styles.menu}>{item.menu.length > 1 ? item.menu[0].name + '외 ' + (item.menu.length - 1) + '개' : item.menu[0].name}</Text>
+                    </View>
+                    
                 </View>
 
                 {/* 리뷰 작성 모달 창*/}
@@ -154,17 +159,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 5,
-        borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
     },
     history: {
         width: '100%',
-        height: 'auto',
-        borderColor: '#E0E0E0',
-        borderBottomWidth: 5,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        marginTop: 10,
+        borderBottomColor: '#E0E0E0',
     },
     historyHeader: {
         flex: 1,
@@ -190,7 +193,9 @@ const styles = StyleSheet.create({
     historyContents: {
         flex: 4,
         margin: 15,
-        marginTop: 10
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     storeName: {
         flexDirection: 'row',
@@ -308,5 +313,17 @@ const styles = StyleSheet.create({
         color: 'white',
         overflow: 'hidden',
         alignItems: 'center',
+    },
+    storeImage: {
+        width: 70,
+        height: 70,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        borderRadius: 20
+    },
+    menu: {
+        fontSize: 15,
+        marginLeft: 10,
+        marginTop: 5
     }
 })

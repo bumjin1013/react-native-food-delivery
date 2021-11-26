@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Button, TextInput, Alert, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import { loginUser } from '../../_actions/user_actions';
-import { StackActions } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen({ navigation, route }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
+
+    async function getItem() {
+        try {
+          let jsonUser = await AsyncStorage.getItem('@jsonUser');
+          console.log(JSON.parse(jsonUser));
+          return jsonValue != null ? JSON.parse(jsonUser) : null;
+          
+        } catch (error) {
+          // Handle errors here
+        }
+      }
+      
+      
+    getItem();
+
     const onChangeEmail = (email) => {
         setEmail(email);
     }
@@ -23,10 +37,25 @@ function LoginScreen({ navigation, route }) {
             password: password
         }
 
+        
         dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess){
-                    console.log('success');
+                    let user = {
+                        email: email,
+                        password: password
+                    }
+                    console.log(JSON.stringify(user));
+                    const storeData = async () => {
+                        try {
+                            let jsonUser = JSON.stringify(user);
+                            await AsyncStorage.setItem(
+                                '@jsonUser', jsonUser
+                            );
+                        } catch (error) {
+                          // Error saving data
+                        }
+                    };
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'Landing' }]

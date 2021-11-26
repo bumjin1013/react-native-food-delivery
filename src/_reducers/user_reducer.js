@@ -9,7 +9,9 @@ import {
     UPDATE_ADDRESS,
     UPDATE_HISTORY_STATE,
     GET_HISTORY,
-    CHANGE_QUANTITY
+    CHANGE_QUANTITY,
+    ADD_HEART_USER,
+    DELETE_HEART_USER
 } from '../_actions/types';
  
 
@@ -57,6 +59,23 @@ export default function(state={},action){
             return{
                 ...state, history: action.payload
             }
+        case ADD_HEART_USER:
+            return {
+                ...state, 
+                userData: {
+                    ...state.userData,
+                    heart: action.payload.heart
+            }
+        }
+        case DELETE_HEART_USER:
+            return {
+                ...state, 
+                userData: {
+                    ...state.userData,
+                    heart: action.payload.heart
+            }
+        }
+
         default:
             return state;
     }

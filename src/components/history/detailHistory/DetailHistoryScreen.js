@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Divider from '../../utils/Divider';
-
+import { AntDesign } from '@expo/vector-icons';
 
 const DetailHistoryScreen = ({ navigation, route }) => {
 
@@ -81,7 +81,11 @@ const DetailHistoryScreen = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                    <AntDesign  name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
                 <Text style={styles.headerText}>주문상세</Text>
+                <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.detailContainer}>
                 <ScrollView style={styles.scroll}>
@@ -103,14 +107,23 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        width: '100%',
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        flexDirection: 'row',
+        backgroundColor: 'white'
+    },
+    backBtn: {
+        flex: 1,
+        marginTop: 30,
+        padding: 15
     },
     headerText: {
+        flex: 8,
         fontWeight: 'bold',
         fontSize: 18,
-        marginTop: 35
+        marginTop: 35,
+        textAlign: 'center',
+        marginLeft: -30
     },
     detailContainer: {
         flex: 9,
@@ -118,8 +131,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 5,
-        borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0'
 
@@ -131,16 +142,24 @@ const styles = StyleSheet.create({
     top: {
         marginRight: -20,
         paddingBottom: 13,
-        borderBottomWidth: 5,
-        borderBottomColor: '#E0E0E0'
+        backgroundColor: 'white',
+        marginTop: 13,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
     },
     middle: {
         marginRight: -20,
-        borderBottomWidth: 5,
-        borderBottomColor: '#E0E0E0'
+        marginTop: 10,
+        backgroundColor: 'white',
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
     },
     bottom: {
+        marginTop: 10,
         marginRight: -20,
+        backgroundColor: 'white',
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
     },
     topContents:{
         marginTop: 20,

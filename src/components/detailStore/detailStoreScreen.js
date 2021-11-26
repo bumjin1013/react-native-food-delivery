@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
+import axios from 'axios';
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
 import { Feather } from '@expo/vector-icons';
 import TabScreen from './Section/TabScreen';
+import { addHeartUser, deleteHeartUser } from '../../_actions/user_actions';
+import { addHeartStore, deleteHeartStore } from '../../_actions/store_actions';
 
 const DetailStoreScreen = ({ navigation, route }) => {
 
     const [store, setStore] = useState('');
     const [star, setStar] = useState('');
+    const user = useSelector(state => state.user.userData && state.user.userData);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get(`http://192.168.0.9:5000/api/stores/stores_by_id?id=${route.params.storeId}`)
@@ -22,7 +27,52 @@ const DetailStoreScreen = ({ navigation, route }) => {
             .catch((err) => alert(err));
     }, [])
 
+    
     const renderStore = () => {
+
+        const body = {
+            userId: user._id,
+            storeId: store._id
+        }
+        
+        //찜 추가
+        const addHeart = () => {
+            console.log('addHeart')
+            dispatch(addHeartUser(body))
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            dispatch(addHeartStore(body))
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
+        //찜 해제
+        const deleteHeart = () => {
+            console.log('deleteHeart')
+            dispatch(deleteHeartUser(body))
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            dispatch(deleteHeartStore(body))
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
         return (
             <View style={styles.scroll}>
@@ -51,8 +101,14 @@ const DetailStoreScreen = ({ navigation, route }) => {
                             <Text style={styles.btnText}>전화</Text>
                         </TouchableOpacity>
                         <View style={styles.columnDivier}/>
-                        <TouchableOpacity style={styles.btn}>
-                            <AntDesign name="hearto" size={15} color="black" />
+                        <TouchableOpacity 
+                            style={styles.btn} 
+                            onPress={user.heart.some(item => item.storeId == store._id) ? deleteHeart : addHeart } 
+                        >
+                            <AntDesign 
+                                name={user.heart.some(item => item.storeId == store._id) ? "heart" : "hearto"} 
+                                size={15} 
+                                color={user.heart.some(item => item.storeId == store._id) ? "red" : "black"} />
                             <Text style={styles.btnText}>찜</Text>
                         </TouchableOpacity>
                         <View style={styles.columnDivier}/>

@@ -16,7 +16,7 @@ const TabScreen = (props) => {
         const renderMenu = props.store && props.store.menu.map((menu) => {
             
             return (
-                <TouchableOpacity key={menu._id} style={styles.menu} onPress={() => navigation.navigate('MenuInfo', {menu: menu, storeId: props.store._id, title: props.store.title})}>
+                <TouchableOpacity key={menu._id} style={styles.menu} onPress={() => navigation.navigate('MenuInfo', {menu: menu, storeId: props.store._id, title: props.store.title, storeImage: props.store.image})}>
                     <View style={styles.menuText}>
                         <Text style={styles.menuName}>{menu.name}</Text>
                         <Text style={styles.menuPrice}>{menu.price}원</Text>

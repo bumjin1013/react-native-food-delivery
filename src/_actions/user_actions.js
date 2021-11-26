@@ -10,7 +10,10 @@ import {
     UPDATE_ADDRESS,
     UPDATE_HISTORY_STATE,
     GET_HISTORY,
-    CHANGE_QUANTITY
+    CHANGE_QUANTITY,
+    ADD_HEART_USER,
+    DELETE_HEART_USER
+    
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -127,6 +130,28 @@ export function changeQuantity(body) {
 
     return {
         type: CHANGE_QUANTITY,
+        payload: request
+    }
+}
+
+//상점 찜 추가
+export function addHeartUser(body) {
+    const request = axios.post(`${USER_SERVER}/heart`, body)
+    .then(response => response.data);
+
+    return {
+        type: ADD_HEART_USER,
+        payload: request
+    }
+}
+
+//상점 찜 삭제
+export function deleteHeartUser(body) {
+    const request = axios.delete(`${USER_SERVER}/heart`, { data: body })
+    .then(response => response.data);
+
+    return {
+        type: DELETE_HEART_USER,
         payload: request
     }
 }

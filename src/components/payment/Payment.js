@@ -15,9 +15,6 @@ export function Payment({ navigation, route }) {
         userId: route.params.userId
     }
 
-    console.log(route.params.body);
-    console.log(data);
-
   /* [필수입력] 결제 종료 후, 라우터를 변경하고 결과를 전달합니다. */
   function callback(response) {
 

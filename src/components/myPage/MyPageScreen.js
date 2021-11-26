@@ -13,7 +13,7 @@ const MyPageScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
                     <AntDesign  name="arrowleft" size={24} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.headerText}>My Page</Text>
+                <Text style={styles.headerText}>마이페이지</Text>
                 <View style={{ flex: 1 }}/>
             </View>
             <View style={styles.nickname}>
@@ -22,7 +22,7 @@ const MyPageScreen = ({ navigation }) => {
                 <AntDesign name="right" size={15} color="black" />
             </View>
             <View style={styles.component}>
-                <TouchableOpacity style={styles.heart} onPress={() => navigation.navigate('Socket')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Heart')} style={styles.heart}>
                     <AntDesign name="hearto" size={24} color="red" />
                     <Text style={styles.componentText}>찜</Text>
                 </TouchableOpacity>
@@ -49,7 +49,6 @@ export default MyPageScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
     },
     header: {
         flex: 1,
@@ -76,10 +75,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 5,
-        borderTopColor: '#E0E0E0',
+        marginTop: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0'
+        borderBottomColor: '#E0E0E0',
+        backgroundColor: 'white'
     },
     nicknameText:{
         fontSize: 20
@@ -93,6 +92,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
+        backgroundColor: 'white'
     },
     heart: {
         flex: 1,
