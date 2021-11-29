@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import Board from './Section/Board';
 const MyPageScreen = ({ navigation }) => {
      
     const user = useSelector(state => state.user.userData)
@@ -16,11 +16,13 @@ const MyPageScreen = ({ navigation }) => {
                 <Text style={styles.headerText}>마이페이지</Text>
                 <View style={{ flex: 1 }}/>
             </View>
-            <View style={styles.nickname}>
+            <View style={styles.scrollContainer}>
+            <ScrollView>
+            <TouchableOpacity onPress={() => navigation.navigate('MyInfo')} style={styles.nickname} >
                 <AntDesign name="user" size={24} color="black" style={{marginRight: 15, fontSize: 30}}/>
                 <Text style={styles.nicknameText}>안녕하세요, {user.nickname}님 </Text>
                 <AntDesign name="right" size={15} color="black" />
-            </View>
+            </TouchableOpacity>
             <View style={styles.component}>
                 <TouchableOpacity onPress={() => navigation.navigate('Heart')} style={styles.heart}>
                     <AntDesign name="hearto" size={24} color="red" />
@@ -35,9 +37,13 @@ const MyPageScreen = ({ navigation }) => {
                     <Text style={styles.componentText}>리뷰관리</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.etc}>
-                
+            <View style={styles.board}>
+                <Board />
             </View>
+            </ScrollView>
+            </View>
+            
+            
             
             
         </View>
@@ -55,7 +61,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0'
     },
     backBtn: {
         flex: 1,
@@ -71,25 +79,22 @@ const styles = StyleSheet.create({
         marginLeft: -30
     },
     nickname: {
-        flex: 1.2,
+        height: 100,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
         marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0',
         backgroundColor: 'white'
     },
     nicknameText:{
         fontSize: 20
     },
     component: {
-        flex: 1.3,
+        height: 100,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: '#E0E0E0',
+        marginTop: 1,
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
         backgroundColor: 'white'
@@ -98,31 +103,31 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
-        borderRightWidth: 0.5,
-        borderColor: '#E0E0E0',
+        height: '100%'
     },
     history: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        borderRightWidth: 0.5,
-        borderLeftWidth: 0.5,
-        borderColor: '#E0E0E0',
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
+        borderColor: '#F0F0F0'
     },
     review :{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        borderLeftWidth: 0.5,
-        borderColor: '#E0E0E0',
     },
     componentText:{
         marginTop: 5
     },
-    etc:{
-        flex: 6.5
+    board:{
+        flex: 6.5,
+        marginTop: 10
+    },
+    scrollContainer: {
+        flex: 9
     }
 })
