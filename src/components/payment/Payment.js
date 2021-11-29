@@ -19,11 +19,11 @@ export function Payment({ navigation, route }) {
   function callback(response) {
 
     if(response.imp_success == 'true'){
-        axios.post('http://192.168.0.9:5000/api/users/order', route.params.body) && axios.post('http://192.168.0.9:5000/api/stores/order', route.params.body)
+        axios.post('http://192.168.0.8:5000/api/users/order', route.params.body) && axios.post('http://192.168.0.8:5000/api/stores/order', route.params.body)
             .then(response => {
                 if (response.data.success) {
                     //소켓 연결
-                    const socket = io(`http://192.168.0.9:5000`); //connet client-to-server
+                    const socket = io(`http://192.168.0.8:5000`); //connet client-to-server
 
                     //데이터 전송
                     socket.emit("JoinRoom", data);

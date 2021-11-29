@@ -24,6 +24,7 @@ import CartScreen from './src/components/cart/CartScreen';
 import OrderScreen from './src/components/order/OrderScreen';
 import Payment from './src/components/payment/Payment';
 import HeartScreen from './src/components/heart/HeartScreen';
+import MyInfoScreen from './src/components/myInfo/MyInfoScreen';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 
@@ -47,6 +48,7 @@ export default function App() {
         <Stack.Screen name="Register" component={Auth(RegisterScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Landing" component={Auth(LandingScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="MyPage" component={Auth(MyPageScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="MyInfo" component={Auth(MyInfoScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="History" component={Auth(HistoryScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Heart" component={Auth(HeartScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="DetailHistory" component={Auth(DetailHistoryScreen, null)} options={{ headerShown: false}}/>

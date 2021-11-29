@@ -1,8 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
+
 const HeartScreen = ({ navigation }) => {
 
+    const heart = useSelector(state => state.user.userData && state.user.userData.heart);
+
+    const renderStore = heart&&heart.map((store) => {
+        
+        return (
+            <View key={store.storeId}>
+
+            </View>
+        )
+    })
     
     return (
         <View style={styles.container}>

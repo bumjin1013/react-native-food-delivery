@@ -7,6 +7,9 @@ import BottomSheet from 'react-native-simple-bottom-sheet';
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
 
+
+
+
 const HistoryScreen = ({ navigation, route }) => {
 
     const dispatch = useDispatch();
@@ -19,22 +22,59 @@ const HistoryScreen = ({ navigation, route }) => {
         setStarCount(rating);
     }
 
+
+
     const renderHistory = history && history.slice(0).reverse().map((item, index) => {
+
+        //요일 계산 함수
+        const renderDay = () => {
+            switch(moment(item.orderTime).day()) {
+                case 0:
+                    return ('일요일');
+                    break;
+                case 1:
+                    return ('월요일');
+                    break;
+                case 2:
+                    return ('화요일');
+                    break;
+                case 3:
+                    return ('수요일');
+                    break;
+                case 4:
+                    return ('목요일');
+                    break;
+                case 5:
+                    return ('금요일');
+                    break;
+                case 6:
+                    return ('토요일');
+                    break;
+            }
+        }
+
+        
 
         return (
             <View style={styles.history} key={index}>
                 
                 <View style={styles.historyHeader}>
-                    <Text style={{ marginLeft: -10 }}>주문일시: {moment(item.orderTime).format('YY년MM월DD일 HH시mm분')}</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item })} style={styles.detailBtn}>
-                        <Text style={{ fontSize: 12 }}>주문상세</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => panelRef.current.togglePanel()} style={styles.etcBtn}>
-                        <Feather name="more-vertical" size={18} color="black" />
-                    </TouchableOpacity>
+                    <View style={styles.date}>  
+                        <Text style={styles.state}>{moment(item.orderTime).format('MM/DD')} {renderDay()}</Text>
+                        <Text style={styles.state}> · {item.state}</Text>
+                    </View>
+                    <View style={styles.detail}>
+                        <TouchableOpacity onPress={() => navigation.navigate('DetailHistory', { history: item })} style={styles.detailBtn}>
+                            <Text style={{ fontSize: 12 }}>주문상세</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => panelRef.current.togglePanel()} style={styles.etcBtn}>
+                            <Feather name="more-vertical" size={18} color="black" />
+                        </TouchableOpacity>
+                    </View>
+                    
                 </View>
                 <View style={styles.historyContents}>
-                    <Image style={styles.storeImage} source={{uri: `http://192.168.0.9:5000/${item.menu[0].storeImage[0]}`}}/> 
+                    <Image style={styles.storeImage} source={{uri: `http://192.168.0.8:5000/${item.menu[0].storeImage[0]}`}}/> 
                     <View>
                         <TouchableOpacity style={styles.storeName} onPress={() => navigation.navigate('DetailStore', {storeId: item.menu[0].storeId})}>
                             <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 10}}>{item.storeName}</Text>
@@ -72,6 +112,11 @@ const HistoryScreen = ({ navigation, route }) => {
                                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                                     <TextInput style={styles.textInput} multiline={true} placeholder='리뷰를 작성해주세요'/>
                                 </TouchableWithoutFeedback>
+                            </View>
+                            <View>
+                                <TouchableOpacity >
+                                    <Text>사진 추가하기</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={styles.modalBtn}>
                                 <TouchableOpacity style={styles.cancel}>
@@ -134,7 +179,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0'
     },
     backBtn: {
         flex: 1,
@@ -175,26 +222,38 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-around',
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 15
     },
     detailBtn: {
-        width: '20%',
-        height: 20,
+        width: '40%',
+        height: 25,
         borderWidth: 1,
         borderColor: '#C0C0C0',
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: -30
+        marginRight: 15,
     },
     etcBtn: {
-        marginRight: -10
+        marginRight: 15
     },
     historyContents: {
         flex: 4,
         margin: 15,
         marginTop: 10,
         flexDirection: 'row',
+        alignItems: 'center'
+    },
+    date: {
+        flex: 1, 
+        marginLeft: 15,
+        justifyContent: 'flex-start',
+        flexDirection: 'row'
+    },
+    detail: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
         alignItems: 'center'
     },
     storeName: {
@@ -325,5 +384,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 10,
         marginTop: 5
+    },
+    state: {
+        color: '#A0A0A0',
+        fontSize: 15
     }
 })

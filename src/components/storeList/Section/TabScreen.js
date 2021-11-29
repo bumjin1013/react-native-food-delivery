@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import StarRating from 'react-native-star-rating';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -17,7 +18,7 @@ const TabScreen = (props) => {
     const [storeList, setStoreList] = useState();
 
     useEffect(() => {
-        axios.get(`http://192.168.0.9:5000/api/stores/list?address=${userAddress}`)
+        axios.get(`http://192.168.0.8:5000/api/stores/list?address=${userAddress}`)
             .then(response => {
                 setStoreList(response.data.store);
             })
@@ -26,12 +27,40 @@ const TabScreen = (props) => {
 
     
     const renderStore = (category) => {
+        
         const filterStore = storeList && storeList.map(store => {
+            let totalStar = 0;
+            let averageStar = 0;
+            //메뉴 랜더링
+            const renderMenu = store.menu.map((item) => {
+                return (
+                    item.name + ', '
+                )
+            })
+            //별점 랜더링
+            const renderStar = store.review.map((item) => {
+                totalStar += item.star
+                averageStar = totalStar / store.review.length
+            })
             if(store.category === category) {
                 return (
                     <TouchableOpacity style={styles.store} key={store._id} onPress={() => navigation.navigate('DetailStore', {storeId: store._id})}>
-                        <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${store.image[0]}`}}/>
-                        <Text>{store.title}</Text>
+                        <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${store.image[0]}`}}/>
+                        <View style={styles.storeInfo}>
+                            <Text style={styles.title}>{store.title}</Text>
+                            <Text style={styles.menu} ellipsizeMode='tail' numberOfLines={1}>{renderMenu}</Text>
+                            <View style={styles.star}>
+                                <StarRating
+                                    disabled={true}
+                                    maxStars={1}
+                                    rating={1}
+                                    starSize={15}
+                                    fullStarColor={'gold'}
+                                />  
+                                <Text style={styles.averageStar}>{averageStar.toFixed(1)}</Text>
+                                <Text>({store.review.length})</Text>
+                            </View>
+                        </View>
                     </TouchableOpacity>
                 )
             } else {
@@ -245,15 +274,35 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.2,
         flexDirection: 'row',
         borderColor: '#E0E0E0',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        width: '100%'
     },
     image: {
         width: 80,
         height: 80,
         borderWidth: 0.2,
-        borderRadius: 15,
+        borderRadius: 30,
         margin: 15,
+        marginRight: 10,
         borderColor: '#C0C0C0'
-    
+    },
+    storeInfo: {
+        marginTop: 15,
+        marginRight: 30,
+        width: '70%'
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    menu: {
+        color: 'gray'
+    },
+    star: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    averageStar: {
+        fontWeight: 'bold'
     }
 })

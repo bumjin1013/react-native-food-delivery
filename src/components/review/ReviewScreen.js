@@ -47,7 +47,7 @@ const ReviewScreen = ({ navigation }) => {
                         />
                     </View>
                     {item.review[0].image
-                        ? <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${item.review[0].image[0]}`}}/>      
+                        ? <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${item.review[0].image[0]}`}}/>      
                         : null
                     }              
                     <View style={{ marginTop: 15}}>
@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
     },
     header: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
+        backgroundColor: 'white',
     },
     backBtn: {
         flex: 1,
@@ -121,8 +121,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 5,
-        borderTopColor: '#E0E0E0',
+        backgroundColor: 'white',
     },
     scroll: {
         width: '100%',

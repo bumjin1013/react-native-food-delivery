@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import Divider from '../../utils/Divider';
 import { AntDesign } from '@expo/vector-icons';
@@ -19,6 +19,7 @@ const MenuInfoScreen = ({ navigation, route }) => {
     const storeId = route.params.storeId;
     const storeName = route.params.title;
     const [quantity, setQuantity] = useState(1);
+    const cart = useSelector(state => state.user.userData && state.user.userData.cart);
 
     const plusBtn = () => {
         setQuantity(quantity + 1);
@@ -30,7 +31,7 @@ const MenuInfoScreen = ({ navigation, route }) => {
     }
 
     const addCart = () => {
-
+        
         let body = {
             menuId: menu._id,
             name: menu.name,
@@ -56,7 +57,7 @@ const MenuInfoScreen = ({ navigation, route }) => {
         <View style={styles.container}>
             <View style={styles.scroll}>
             <ScrollView contentContainerStyle={styles.scrollView}>
-                <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${menu.image[0]}`}}/>
+                <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${menu.image[0]}`}}/>
                 <View style={styles.menuBox}>
                     <Text style={{fontSize: 20, fontWeight: 'bold'}}>{menu.name}</Text>
                 </View>

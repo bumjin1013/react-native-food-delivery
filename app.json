@@ -21,6 +21,8 @@
       "bundleIdentifier": "com.yourcompany.yourappname",
       "buildNumber": "1.0.0",
       "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "카메라 권한 설정",
+        "NSPhotoLibraryAddUsageDescription": "라이브러리 권한",
         "LSApplicationQueriesSchemes": [
           "kftc-bankpay",
           "ispmobile",

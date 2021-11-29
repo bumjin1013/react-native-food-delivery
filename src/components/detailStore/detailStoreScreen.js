@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Linking, Button } from 'react-native';
 import axios from 'axios';
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
@@ -12,12 +12,12 @@ import { addHeartStore, deleteHeartStore } from '../../_actions/store_actions';
 const DetailStoreScreen = ({ navigation, route }) => {
 
     const [store, setStore] = useState('');
-    const [star, setStar] = useState('');
+    const [star, setStar] = useState();
     const user = useSelector(state => state.user.userData && state.user.userData);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`http://192.168.0.9:5000/api/stores/stores_by_id?id=${route.params.storeId}`)
+        axios.get(`http://192.168.0.8:5000/api/stores/stores_by_id?id=${route.params.storeId}`)
             .then(response => {
                 if(response.data.success) {
                     setStore(response.data.store[0])
@@ -96,7 +96,7 @@ const DetailStoreScreen = ({ navigation, route }) => {
                         <Text style={styles.reviewText}>최근 사장님 댓글</Text>
                     </View>
                     <View style={styles.storeHeaderBtn}>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={() => {Linking.openURL(`tel:01012341234`)}} >
                             <Feather name="phone-call" size={15} color="black" />
                             <Text style={styles.btnText}>전화</Text>
                         </TouchableOpacity>
@@ -157,7 +157,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1
     },
     backBtn: {
         flex: 1,
@@ -182,8 +184,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderTopWidth: 5,
-        borderTopColor: '#E0E0E0',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
     },

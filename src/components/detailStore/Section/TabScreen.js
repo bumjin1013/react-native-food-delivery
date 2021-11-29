@@ -21,7 +21,7 @@ const TabScreen = (props) => {
                         <Text style={styles.menuName}>{menu.name}</Text>
                         <Text style={styles.menuPrice}>{menu.price}원</Text>
                     </View>
-                    <Image style={styles.image} source={{uri: `http://192.168.0.9:5000/${menu.image[0]}`}}></Image>
+                    <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${menu.image[0]}`}}></Image>
                 </TouchableOpacity>
                 
             )
@@ -100,7 +100,7 @@ const TabScreen = (props) => {
                     </View>
                     {review.image ? 
                     <View style={{alignItems: 'center'}}>  
-                        <Image style={styles.reviewImage} source={{uri: `http://192.168.0.9:5000/${review.image[0]}`}}/>    
+                        <Image style={styles.reviewImage} source={{uri: `http://192.168.0.8:5000/${review.image[0]}`}}/>    
                     </View> : null}
                     <View style={styles.contents}>
                         <Text style={styles.reviewText}>{review.contents}</Text>
@@ -221,11 +221,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 150,
         backgroundColor: 'white',
-        borderTopWidth: 0.2,
-        borderBottomWidth: 5,
-        borderColor: '#C0C0C0',
+        marginBottom: 10,
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0'
     },
     star: {
         flex: 4,
@@ -242,7 +242,6 @@ const styles = StyleSheet.create({
     review: {
         width: '100%',
         backgroundColor: 'white',
-        borderTopWidth: 0.2,
         borderBottomWidth: 0.2,
         borderColor: '#C0C0C0',
         flex: 0,
