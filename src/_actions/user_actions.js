@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     LOGIN_USER,
+    LOGIN_USER_TOKEN,
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
@@ -12,7 +13,8 @@ import {
     GET_HISTORY,
     CHANGE_QUANTITY,
     ADD_HEART_USER,
-    DELETE_HEART_USER
+    DELETE_HEART_USER,
+    ADD_REVIEW
     
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
@@ -33,6 +35,16 @@ export function loginUser(dataToSubmit){
 
     return {
         type: LOGIN_USER,
+        payload: request
+    }
+}
+
+export function loginUserToken(dataToSubmit){
+    const request = axios.post(`${USER_SERVER}/login/token`,dataToSubmit)
+                .then(response => response.data);
+
+    return {
+        type: LOGIN_USER_TOKEN,
         payload: request
     }
 }
@@ -152,6 +164,17 @@ export function deleteHeartUser(body) {
 
     return {
         type: DELETE_HEART_USER,
+        payload: request
+    }
+}
+
+//리뷰 등록
+export function addReview(body) {
+    const request = axios.post(`${USER_SERVER}/review`, body)
+    .then(response => response.data);
+
+    return {
+        type: ADD_REVIEW,
         payload: request
     }
 }

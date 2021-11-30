@@ -25,6 +25,7 @@ import OrderScreen from './src/components/order/OrderScreen';
 import Payment from './src/components/payment/Payment';
 import HeartScreen from './src/components/heart/HeartScreen';
 import MyInfoScreen from './src/components/myInfo/MyInfoScreen';
+import LoadingScreen from './src/components/loading/LoadingScreen';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 
@@ -44,21 +45,22 @@ export default function App() {
 >
       <NavigationContainer>
       <Stack.Navigator initalRouteName="Main">
+        <Stack.Screen name="Loading" component={Auth(LoadingScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Login" component={Auth(LoginScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Register" component={Auth(RegisterScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Landing" component={Auth(LandingScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="MyPage" component={Auth(MyPageScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="MyInfo" component={Auth(MyInfoScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="History" component={Auth(HistoryScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Heart" component={Auth(HeartScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="DetailHistory" component={Auth(DetailHistoryScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Review" component={Auth(ReviewScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="StoreList" component={Auth(StoreListScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="DetailStore" component={Auth(DetailStoreScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="MenuInfo" component={Auth(MenuInfoScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Cart" component={Auth(CartScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Order" component={Auth(OrderScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Payment" component={Auth(Payment, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Landing" component={Auth(LandingScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="MyPage" component={Auth(MyPageScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="MyInfo" component={Auth(MyInfoScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="History" component={Auth(HistoryScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Heart" component={Auth(HeartScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="DetailHistory" component={Auth(DetailHistoryScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Review" component={Auth(ReviewScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="StoreList" component={Auth(StoreListScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="DetailStore" component={Auth(DetailStoreScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="MenuInfo" component={Auth(MenuInfoScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Cart" component={Auth(CartScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Order" component={Auth(OrderScreen, true)} options={{ headerShown: false}}/>
+        <Stack.Screen name="Payment" component={Auth(Payment, true)} options={{ headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>

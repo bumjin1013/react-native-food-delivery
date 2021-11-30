@@ -1,5 +1,6 @@
 import {
     LOGIN_USER,
+    LOGIN_USER_TOKEN,
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
@@ -11,7 +12,8 @@ import {
     GET_HISTORY,
     CHANGE_QUANTITY,
     ADD_HEART_USER,
-    DELETE_HEART_USER
+    DELETE_HEART_USER,
+    ADD_REVIEW
 } from '../_actions/types';
  
 
@@ -20,6 +22,8 @@ export default function(state={},action){
         case REGISTER_USER:
             return {...state, register: action.payload }
         case LOGIN_USER:
+            return { ...state, loginSucces: action.payload }
+        case LOGIN_USER_TOKEN:
             return { ...state, loginSucces: action.payload }
         case AUTH_USER:
             return {...state, userData: action.payload }
@@ -75,7 +79,14 @@ export default function(state={},action){
                     heart: action.payload.heart
             }
         }
-
+        case ADD_REVIEW: 
+            return {
+                ...state, 
+                userData: {
+                    ...state.userData,
+                    history: action.payload.history
+            }
+        }
         default:
             return state;
     }

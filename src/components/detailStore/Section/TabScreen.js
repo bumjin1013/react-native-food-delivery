@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import StarRating from 'react-native-star-rating';

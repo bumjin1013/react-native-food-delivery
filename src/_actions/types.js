@@ -1,4 +1,5 @@
 export const LOGIN_USER = 'login_user';
+export const LOGIN_USER_TOKEN = 'login_user_token';
 export const REGISTER_USER = 'register_user';
 export const AUTH_USER = 'auth_user';
 export const LOGOUT_USER = 'logout_user';
@@ -11,6 +12,7 @@ export const GET_HISTORY = 'get_history';
 export const CHANGE_QUANTITY = 'change_quantity';
 export const ADD_HEART_USER = 'add_heart_user';
 export const DELETE_HEART_USER =  'delete_heart_user';
+export const ADD_REVIEW = 'add_review';
 
 export const LOGIN_OWNER = 'login_owner';
 export const REGISTER_OWNER = 'register_owner';

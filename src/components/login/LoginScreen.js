@@ -10,26 +10,23 @@ function LoginScreen({ navigation, route }) {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
-    async function getItem() {
-        try {
-          let jsonUser = await AsyncStorage.getItem('@jsonUser');
-          console.log(JSON.parse(jsonUser));
-          return jsonValue != null ? JSON.parse(jsonUser) : null;
-          
-        } catch (error) {
-          // Handle errors here
-        }
-      }
-      
-      
-    getItem();
-
     const onChangeEmail = (email) => {
         setEmail(email);
     }
     const onChangePassword = (password) => {
         setPassword(password);
     }
+
+    const storeData = async (user) => {
+        try {
+            let jsonUser = JSON.stringify(user);
+            await AsyncStorage.setItem(
+                '@jsonUser', jsonUser
+            );
+        } catch (error) {
+          // Error saving data
+        }
+    };
     const onPressLogin = () => {
        
         let body = {
@@ -43,19 +40,10 @@ function LoginScreen({ navigation, route }) {
                 if(response.payload.loginSuccess){
                     let user = {
                         email: email,
-                        password: password
+                        token: response.payload.token
                     }
                     console.log(JSON.stringify(user));
-                    const storeData = async () => {
-                        try {
-                            let jsonUser = JSON.stringify(user);
-                            await AsyncStorage.setItem(
-                                '@jsonUser', jsonUser
-                            );
-                        } catch (error) {
-                          // Error saving data
-                        }
-                    };
+                    storeData(user);
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'Landing' }]
@@ -172,7 +160,6 @@ const styles = StyleSheet.create({
        color: 'white',
        
     }
-
 });
 
 export default LoginScreen

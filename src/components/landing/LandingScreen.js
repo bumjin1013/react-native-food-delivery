@@ -6,46 +6,51 @@ import Category from './Category/Category';
 
 function LandingScreen({ navigation }) {
 
-    const user = useSelector(state => state.user.userData);
+    const user = useSelector(state => state.user.userData && state.user.userData);
 
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.address}> {user.address.address} </Text>
+    if(user.isAuth){
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.address}> {user.address.address} </Text>
+                </View>
+                <View style={styles.tab}>
+                    <TouchableOpacity>
+                        <Text style={styles.tabBtn}>배달</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={styles.tabBtn}>포장</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.banner}>
+                    <Text> 배너 </Text>
+                </View>
+                <View style={styles.category}>
+                    <ScrollView>
+                        <Category />
+                    </ScrollView>
+                </View>
+                <View style={styles.bottomTab}>
+                    <TouchableOpacity>
+                        <AntDesign name="search1" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <AntDesign name="hearto" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('History')}>
+                        <AntDesign name="bars" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
+                        <AntDesign name="user" size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.tab}>
-                <TouchableOpacity>
-                    <Text style={styles.tabBtn}>배달</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.tabBtn}>포장</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.banner}>
-                <Text> 배너 </Text>
-            </View>
-            <View style={styles.category}>
-                <ScrollView>
-                    <Category />
-                </ScrollView>
-            </View>
-            <View style={styles.bottomTab}>
-                <TouchableOpacity>
-                    <AntDesign name="search1" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <AntDesign name="hearto" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('History')}>
-                    <AntDesign name="bars" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-                    <AntDesign name="user" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
+        )
+    } else {
+        return (
+            null
+        )
+    }
 }
 
 export default LandingScreen
@@ -62,11 +67,13 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#99ccff'
     },
     address: {
         fontSize: 15,
-        marginTop: 35
+        marginTop: 35,
+        fontWeight: 'bold',
+        color: 'white'
     },
     tab: {
         flex: 0.7,

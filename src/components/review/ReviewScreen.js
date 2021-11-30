@@ -27,6 +27,8 @@ const ReviewScreen = ({ navigation }) => {
             )
         })
 
+        console.log(typeof(item.review[0].image));
+
         //작성한 리뷰가 있는 경우에만
         if(item.review.length !== 0) {
             return (
@@ -46,9 +48,13 @@ const ReviewScreen = ({ navigation }) => {
                             emptyStarColor={'#E0E0E0'}
                         />
                     </View>
-                    {item.review[0].image
-                        ? <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${item.review[0].image[0]}`}}/>      
-                        : null
+                    {/* 리뷰의 이미지가 존재하는경우 랜더링 하는데, string으로 저장된 경우와 array로 저장된 경우 나누어 랜더링 */}
+                    {item.review[0].image ? 
+                        <Image style={styles.image} 
+                            source={typeof(item.review[0].image == 'string') ? 
+                                {uri: `http://192.168.0.8:5000/${item.review[0].image}`} : 
+                                {uri: `http://192.168.0.8:5000/${item.review[0].image[0]}`}}/> : 
+                        null
                     }              
                     <View style={{ marginTop: 15}}>
                         <Text style={{ fontSize: 17}}>{item.review[0].contents}</Text>

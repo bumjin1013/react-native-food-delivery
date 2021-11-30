@@ -1,49 +1,78 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { logoutUser } from '../../_actions/user_actions';
 
 const MyInfoScreen = ({ navigation }) => {
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state.user.userData && state.user.userData);
     const [nickname, setNickname] = useState(user && user.nickname);
 
+    const logout = async() => {
+        await dispatch(logoutUser(user._id))
+            .then(response => {
+                if(response.payload.success) {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Login' }]
+                    })
+                } else {
+                    alert('로그아웃에 실패하였습니다.');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
     console.log(nickname);
     
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-                    <AntDesign  name="arrowleft" size={24} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>내 정보</Text>
-                <View style={{ flex: 1 }}/>
-            </View>
-            <View style={styles.scrollContainer}>
-                <ScrollView style={styles.scroll}>
-                    <View style={styles.profile}>
-                        <AntDesign name="user" size={24} color="black" style={{marginRight: 15, fontSize: 30}}/>
-                        <TextInput 
-                            defaultValue={nickname} 
-                            textAlign='center' 
-                            style={styles.nickname} 
-                            onChangeText={setNickname}/>
-                    </View>
-                    <View style={styles.etc}>
-                        <View style={styles.address}>
-                            <Text>주소</Text>
-                            <Text>{user.address.address + ' ' + user.address.detail}</Text>
+    if(user.isAuth){
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                        <AntDesign  name="arrowleft" size={24} color="black" />
+                    </TouchableOpacity>
+                    <Text style={styles.headerText}>내 정보</Text>
+                    <View style={{ flex: 1 }}/>
+                </View>
+                <View style={styles.scrollContainer}>
+                    <ScrollView style={styles.scroll}>
+                        <View style={styles.profile}>
+                            <AntDesign name="user" size={24} color="black" style={{marginRight: 15, fontSize: 30}}/>
+                            <TextInput 
+                                defaultValue={nickname} 
+                                textAlign='center' 
+                                style={styles.nickname} 
+                                onChangeText={setNickname}/>
                         </View>
-                        <View style={styles.email}>
-                            <Text>이메일</Text>
-                            <Text>{user.email}</Text>
+                        <View style={styles.etc}>
+                            <View style={styles.address}>
+                                <Text>주소</Text>
+                                <Text>{user.address.address + ' ' + user.address.detail}</Text>
+                            </View>
+                            <View style={styles.email}>
+                                <Text>이메일</Text>
+                                <Text>{user.email}</Text>
+                            </View>
+                           
                         </View>
-                       
-                    </View>
-                </ScrollView>
+                        <TouchableOpacity onPress={logout}>
+                            <Text>로그아웃</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                </View>
             </View>
-        </View>
-    )
+        )
+    } else {
+        return (
+            null
+        )
+    }
 }
 
 export default MyInfoScreen
