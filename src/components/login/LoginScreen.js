@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Button, TextInput, Alert, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import { loginUser } from '../../_actions/user_actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { showMessage, hideMessage } from "react-native-flash-message";
+import FlashMessage from "react-native-flash-message";
 
 function LoginScreen({ navigation, route }) {
 
@@ -34,7 +36,6 @@ function LoginScreen({ navigation, route }) {
             password: password
         }
 
-        
         dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess){
@@ -42,15 +43,27 @@ function LoginScreen({ navigation, route }) {
                         email: email,
                         token: response.payload.token
                     }
-                    console.log(JSON.stringify(user));
                     storeData(user);
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'Landing' }]
                     })
                 } else {
-                    Alert.alert('error');
+                    showMessage({
+                        message: "로그인 정보가 일치하지 않습니다.",
+                        type: "danger",
+                        icon: "danger",
+                        backgroundColor: '#96e4fa'
+                      });
                 }
+            })
+            .catch(err => {
+                showMessage({
+                    message: "로그인에 실패하였습니다.",
+                    type: "danger",
+                    icon: "danger",
+                    backgroundColor: '#96e4fa'
+                  });
             })
     }
     
@@ -61,6 +74,7 @@ function LoginScreen({ navigation, route }) {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+            <FlashMessage position="top" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                     <View style={styles.login}>
                         <Text style={styles.loginText}>로그인</Text>
@@ -81,7 +95,7 @@ function LoginScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#99ccff',
+        backgroundColor: '#96e4fa',
         alignItems: 'center',
         justifyContent: 'center',
     },
