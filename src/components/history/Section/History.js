@@ -81,7 +81,7 @@ const History = (props) => {
                                 message: "리뷰를 등록하였습니다.",
                                 type: "info",
                                 icon: "success",
-                                backgroundColor: '#99ccff'
+                                backgroundColor: '#96e4fa'
                               });
                               
                         } else {
@@ -90,7 +90,7 @@ const History = (props) => {
                                 message: "리뷰등록에 실패하였습니다.",
                                 type: "danger",
                                 icon: "danger",
-                                backgroundColor: '#99ccff'
+                                backgroundColor: '#96e4fa'
                               });
                         }
                     })
@@ -101,7 +101,7 @@ const History = (props) => {
                         message: "리뷰 등록에 실패하였습니다.",
                         type: "danger",
                         icon: "danger",
-                        backgroundColor: '#99ccff'
+                        backgroundColor: '#96e4fa'
                       });
                 }
             })
@@ -124,7 +124,7 @@ const History = (props) => {
                         message: "리뷰를 등록하였습니다.",
                         type: "info",
                         icon: "success",
-                        backgroundColor: '#99ccff'
+                        backgroundColor: '#96e4fa'
                       });
                 } else {
                     setModalVisible(false);
@@ -132,7 +132,7 @@ const History = (props) => {
                         message: "리뷰등록에 실패하였습니다.",
                         type: "danger",
                         icon: "danger",
-                        backgroundColor: '#99ccff'
+                        backgroundColor: '#96e4fa'
                       });
                 }
             })
