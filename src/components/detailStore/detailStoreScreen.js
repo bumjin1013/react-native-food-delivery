@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     cart: {
         marginBottom: 30,
         marginRight: 30,
-        backgroundColor: '#99ccff',
+        backgroundColor: '#96e4fa',
         width: 60,
         height: 60,
         borderWidth: 0,

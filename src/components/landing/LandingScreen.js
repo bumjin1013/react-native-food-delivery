@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Category from './Category/Category';
 
@@ -11,6 +11,7 @@ function LandingScreen({ navigation }) {
     if(user.isAuth){
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content"/>
                 <View style={styles.header}>
                     <Text style={styles.address}> {user.address.address} </Text>
                 </View>
@@ -30,6 +31,7 @@ function LandingScreen({ navigation }) {
                         <Category />
                     </ScrollView>
                 </View>
+
                 <View style={styles.bottomTab}>
                     <TouchableOpacity>
                         <AntDesign name="search1" size={24} color="black" />
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#99ccff'
+        backgroundColor: '#96e4fa'
     },
     address: {
         fontSize: 15,

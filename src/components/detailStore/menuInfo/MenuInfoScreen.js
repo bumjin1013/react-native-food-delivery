@@ -48,7 +48,7 @@ const MenuInfoScreen = ({ navigation, route }) => {
             message: "장바구니에 추가하였습니다.",
             type: "info",
             icon: "success",
-            backgroundColor: '#99ccff'
+            backgroundColor: '#96e4fa'
           });
         
     }
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
-        backgroundColor: '#99ccff'
+        backgroundColor: '#96e4fa'
     },
     cartText: {
         fontSize: 15,

@@ -73,7 +73,7 @@ const CartScreen = ({ navigation }) => {
                             <RadioForm
                                 radio_props={radio_props}
                                 initial={0}
-                                buttonColor={'#99ccff'}
+                                buttonColor={'#96e4fa'}
                                 buttonSize={10}
                                 buttonOuterSize={25}
                                 onPress={(value) => setChecked(value)}
@@ -86,7 +86,7 @@ const CartScreen = ({ navigation }) => {
                         {cart ? rednerMenu : null}
                     </View>
                     <TouchableOpacity style={styles.addMore} onPress={() => navigation.goBack()}>
-                        <AntDesign name="plus" size={16} color="#99ccff"/>
+                        <AntDesign name="plus" size={16} color="#96e4fa"/>
                         <Text style={styles.addMoreText}>더 담으러 가기</Text>
                     </TouchableOpacity>
                 </ScrollView>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     },
     addMoreText: {
         fontSize: 15,
-        color: '#99ccff',
+        color: '#96e4fa',
         fontWeight: 'bold',
         borderBottomWidth: 1,
         borderColor: '#E0E0E0'
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     orderBtn: {
-        backgroundColor: '#99ccff',
+        backgroundColor: '#96e4fa',
         width: '90%',
         alignItems: 'center',
         borderRadius: 10,
