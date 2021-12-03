@@ -11,7 +11,8 @@ import Auth from './src/hoc/auth';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/components/login/LoginScreen';
-import RegisterScreen from './src/components/register/RegisterScreen';
+import FirstRegisterScreen from './src/components/register/FirstRegisterScreen';
+import SecondRegisterScreen from './src/components/register/SecondRegisterScreen';
 import LandingScreen from './src/components/landing/LandingScreen';
 import MyPageScreen from './src/components/myPage/MyPageScreen';
 import HistoryScreen from './src/components/history/HistoryScreen';
@@ -47,7 +48,8 @@ export default function App() {
       <Stack.Navigator initalRouteName="Main">
         <Stack.Screen name="Loading" component={Auth(LoadingScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Login" component={Auth(LoginScreen, null)} options={{ headerShown: false}}/>
-        <Stack.Screen name="Register" component={Auth(RegisterScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="FirstRegister" component={Auth(FirstRegisterScreen, null)} options={{ headerShown: false}}/>
+        <Stack.Screen name="SecondRegister" component={Auth(SecondRegisterScreen, null)} options={{ headerShown: false}}/>
         <Stack.Screen name="Landing" component={Auth(LandingScreen, true)} options={{ headerShown: false}}/>
         <Stack.Screen name="MyPage" component={Auth(MyPageScreen, true)} options={{ headerShown: false}}/>
         <Stack.Screen name="MyInfo" component={Auth(MyInfoScreen, true)} options={{ headerShown: false}}/>

@@ -8,6 +8,15 @@ const Tab = createMaterialTopTabNavigator();
 
 const TabScreen = (props) => {
 
+    const MenuComponent = () => (
+        <Menu store={props.store}/>
+    )
+    const InfoComponent = () => (
+        <Info store={props.store}/>
+    )
+    const ReviewComponent = () => (
+        <Review store={props.store} star={props.star}/>
+    )
     return (
         <Tab.Navigator 
             screenOptions={{
@@ -19,7 +28,7 @@ const TabScreen = (props) => {
         >
              <Tab.Screen
                 name="Menu"
-                component={() => <Menu store={props.store}/>}
+                component={MenuComponent}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ forcused, color }) => {
@@ -29,7 +38,7 @@ const TabScreen = (props) => {
             />
             <Tab.Screen
                 name="Info"
-                component={() => <Info store={props.store}/>}
+                component={InfoComponent}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ forcused, color }) => {
@@ -39,7 +48,7 @@ const TabScreen = (props) => {
             />
             <Tab.Screen
                 name="Review"
-                component={() => <Review store={props.store} star={props.star}/>}
+                component={ReviewComponent}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ forcused, color }) => {

@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import ExpoFastImage from 'expo-fast-image';
 
+ 
 const Menu = (props) => {
     const navigation = useNavigation();
     const renderMenu = props.store && props.store.menu.map((menu) => {
@@ -12,9 +14,8 @@ const Menu = (props) => {
                     <Text style={styles.menuName}>{menu.name}</Text>
                     <Text style={styles.menuPrice}>{menu.price}원</Text>
                 </View>
-                <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${menu.image[0]}`}}></Image>
+                <ExpoFastImage style={styles.image} uri={`http://192.168.0.8:5000/${menu.image[0]}`} cacheKey={menu._id}/>
             </TouchableOpacity>
-            
         )
     })
 

@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     orderBtn: {
-        backgroundColor: '#99ccff',
+        backgroundColor: '#96e4fa',
         width: '90%',
         alignItems: 'center',
         borderRadius: 10,

@@ -1,65 +1,70 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native'
 import StarRating from 'react-native-star-rating';
 import { AntDesign } from '@expo/vector-icons';
 import moment from 'moment';
+import ExpoFastImage from 'expo-fast-image';
 
 const Review = (props) => {
-    console.log('re-render');
-    const renderReview = props.store && props.store.review.slice(0).reverse().map((review) => {
-
+   
+    const renderReview = (item) => {
         return (
-            <View key={review._id} style={styles.review}>
+            <View key={item.item._id} style={styles.review}>
                 <View style={styles.reviewTitle}>
                     <AntDesign name="user" size={30} color="black" style={styles.userIcon}/>
                     <View>
-                        <Text style={styles.writer}>{review.writer}</Text>
+                        <Text style={styles.writer}>{item.item.writer}</Text>
                         <View style={{flexDirection: 'row'}}>
                             <StarRating
                                 disabled={true}
                                 maxStars={5}
-                                rating={review.star}
+                                rating={item.item.star}
                                 selectedStar={(rating) => onStarRatingPress(rating)}
                                 starSize={18}
                                 fullStarColor={'gold'}
                                 emptyStarColor={'#E0E0E0'}
                             />      
-                            <Text style={{marginLeft: 5}}>{moment(review.createdAt).format('YY년MM월DD일 HH시mm분')}</Text>    
+                            <Text style={{marginLeft: 5}}>{moment(item.item.createdAt).format('YY년MM월DD일 HH시mm분')}</Text>    
                         </View>
                     </View>
                 </View>
-                {review.image ? 
+                {item.item.image ? 
                 <View style={{alignItems: 'center'}}>  
-                    <Image style={styles.reviewImage} source={{uri: `http://192.168.0.8:5000/${review.image[0]}`}}/>    
+                    <ExpoFastImage style={styles.reviewImage} uri={`http://192.168.0.8:5000/${item.item.image[0]}`} cacheKey={item.item._id}/>    
                 </View> : null}
                 <View style={styles.contents}>
-                    <Text style={styles.reviewText}>{review.contents}</Text>
+                    <Text style={styles.reviewText}>{item.item.contents}</Text>
                 </View>
             </View>
         )
-    })
-
+    }
     return(
-        <ScrollView>
-            <View style={styles.detail}>
-                <View style={styles.star}>
-                    <Text style={styles.starText}>{props.star && props.star}</Text>
-                    <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        rating={props.star && props.star}
-                        selectedStar={(rating) => onStarRatingPress(rating)}
-                        starSize={23}
-                        fullStarColor={'gold'}
-                        emptyStarColor={'#E0E0E0'}
-                    />
-                </View>
-                <View style={styles.starDetail}>
+        <FlatList
+                data={props.store.review.slice(0).reverse()}
+                renderItem={renderReview}
+                keyExtractor={(item) => item._id} 
+                initialNumToRender = {5}
+                maxToRenderPerBatch = {5}
+                ListHeaderComponent= {
+                    <View style={styles.detail}>
+                        <View style={styles.star}>
+                            <Text style={styles.starText}>{props.star && props.star}</Text>
+                            <StarRating
+                                disabled={true}
+                                maxStars={5}
+                                rating={props.star && props.star}
+                                selectedStar={(rating) => onStarRatingPress(rating)}
+                                starSize={23}
+                                fullStarColor={'gold'}
+                                emptyStarColor={'#E0E0E0'}
+                            />
+                        </View>
+                        <View style={styles.starDetail}>
             
-                </View>
-            </View>
-            {renderReview}
-        </ScrollView>
+                        </View>
+                    </View>
+                }
+            />
     )
 }
 

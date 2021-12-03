@@ -1,12 +1,16 @@
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import Board from './Section/Board';
+
 const MyPageScreen = ({ navigation }) => {
      
-    const user = useSelector(state => state.user.userData)
+    
+    const user = useSelector(state => state.user.userData && state.user.userData);
+
+    
     return (
         <View style={styles.container}>
             <View style={styles.header}>

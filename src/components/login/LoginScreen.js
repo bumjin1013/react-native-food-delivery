@@ -66,11 +66,6 @@ function LoginScreen({ navigation, route }) {
                   });
             })
     }
-    
-    const onPressSignUp = () => {
-        navigation.navigate('Register');
-    }
-
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
@@ -84,7 +79,7 @@ function LoginScreen({ navigation, route }) {
                             <Text style={styles.loginBtnText}>로그인</Text>
                         </TouchableOpacity>
                         <View style={styles.button}>
-                            <Button title='회원가입' style={styles.signUpBtn} onPress={onPressSignUp}/>
+                            <Button title='회원가입' style={styles.signUpBtn} onPress={() => navigation.navigate('FirstRegister')}/>
                         </View>
                     </View>
             </TouchableWithoutFeedback>

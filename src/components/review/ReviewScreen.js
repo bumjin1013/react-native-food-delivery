@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import StarRating from 'react-native-star-rating';
+import * as Progress from 'react-native-progress';
 
 const ReviewScreen = ({ navigation }) => {
 
@@ -54,7 +55,7 @@ const ReviewScreen = ({ navigation }) => {
                             source={typeof(item.review[0].image == 'string') ? 
                                 {uri: `http://192.168.0.8:5000/${item.review[0].image}`} : 
                                 {uri: `http://192.168.0.8:5000/${item.review[0].image[0]}`}}/> : 
-                        null
+                        <Progress.CircleSnail color={['red']} />
                     }              
                     <View style={{ marginTop: 15}}>
                         <Text style={{ fontSize: 17}}>{item.review[0].contents}</Text>

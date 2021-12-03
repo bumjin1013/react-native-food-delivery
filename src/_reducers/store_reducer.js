@@ -12,8 +12,7 @@ import {
    GET_DELIVERY_AREA,
    DELETE_DELIVERY_AREA,
    ADD_HEART_STORE,
-   DELETE_HEART_STORE,
-   ADD_REVIEW
+   DELETE_HEART_STORE
 } from '../_actions/types';
  
 
