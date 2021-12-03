@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import StarRating from 'react-native-star-rating';
+import ExpoFastImage from 'expo-fast-image';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -45,7 +46,7 @@ const TabScreen = (props) => {
             if(store.category === category) {
                 return (
                     <TouchableOpacity style={styles.store} key={store._id} onPress={() => navigation.navigate('DetailStore', {storeId: store._id})}>
-                        <Image style={styles.image} source={{uri: `http://192.168.0.8:5000/${store.image[0]}`}}/>
+                        <ExpoFastImage style={styles.image} uri={`http://192.168.0.8:5000/${store.image[0]}`} cacheKey={store._id}/>
                         <View style={styles.storeInfo}>
                             <Text style={styles.title}>{store.title}</Text>
                             <Text style={styles.menu} ellipsizeMode='tail' numberOfLines={1}>{renderMenu}</Text>
