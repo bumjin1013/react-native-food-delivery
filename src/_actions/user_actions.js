@@ -49,8 +49,8 @@ export function loginUserToken(dataToSubmit){
     }
 }
 
-export function auth(){
-    const request = axios.get(`${USER_SERVER}/auth`)
+export async function auth(){
+    const request = await axios.get(`${USER_SERVER}/auth`)
     .then(response => response.data);
 
     return {

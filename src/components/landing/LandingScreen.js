@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, StatusBar, Modal, KeyboardAvoidingView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import Category from './Category/Category';
+import Category from './Section/Category/Category';
+import Recommand from './Section/Recommand/Recommand';
+import Postcode from '@actbase/react-daum-postcode';
 
 function LandingScreen({ navigation }) {
 
     const user = useSelector(state => state.user.userData && state.user.userData);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [address, setAddress] = useState([false, '주소를 입력해주세요']);
+    const [detailAddress, setDetailAddress] = useState('');
 
     if(user.isAuth){
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>
-                <View style={styles.header}>
-                    <Text style={styles.address}> {user.address.address} </Text>
+                <View style={styles.header} >
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                        <Text style={styles.address}> {user.address.address} </Text>
+                    </TouchableOpacity>
+                    
                 </View>
+                <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible)}}>
+                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <View style={styles.closeBtn}>  
+                                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                                    <AntDesign name="close" size={24} color="black" />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.postcodeView}>
+                                <Postcode
+                                    style={{ width: '90%', height: '90%' }}
+                                    jsOptions={{ animation: true, hideMapBtn: true }}
+                                    onSelected={data => {
+                                    setAddress([true, data.address]);
+                                    setModalVisible(false);
+                                    }}
+                                />
+                            </View>      
+                        </View>
+                    </KeyboardAvoidingView>
+                </Modal>
                 <View style={styles.tab}>
                     <TouchableOpacity>
                         <Text style={styles.tabBtn}>배달</Text>
@@ -121,5 +150,33 @@ const styles = StyleSheet.create({
         width: '100%',
         borderColor: '#C0C0C0',
         padding: 13,
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        width: '92%',
+        height: '80%',
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    closeBtn: {
+        justifyContent: 'flex-end'
+    },
+    postcodeView: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 })

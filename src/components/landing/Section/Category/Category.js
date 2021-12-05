@@ -66,6 +66,7 @@ export default Category
 const styles = StyleSheet.create({
     iconContainer: {
         flex: 1,
+        backgroundColor: 'white',
     },
     firstLine: {
         flex:1,

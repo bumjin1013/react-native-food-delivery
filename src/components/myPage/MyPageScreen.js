@@ -6,11 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Board from './Section/Board';
 
 const MyPageScreen = ({ navigation }) => {
-     
-    
+
     const user = useSelector(state => state.user.userData && state.user.userData);
 
-    
     return (
         <View style={styles.container}>
             <View style={styles.header}>

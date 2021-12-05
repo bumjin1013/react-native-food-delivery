@@ -15,6 +15,17 @@
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
+        } 
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./local/assets/notification-sound.wav",
+            "./local/assets/notification-sound-other.wav"
+          ]
         }
       ]
     ]
@@ -30,6 +41,7 @@
       "bundleIdentifier": "com.yourcompany.yourappname",
       "buildNumber": "1.0.0",
       "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"],
         "NSPhotoLibraryUsageDescription": "카메라 권한 설정",
         "NSPhotoLibraryAddUsageDescription": "라이브러리 권한",
         "LSApplicationQueriesSchemes": [

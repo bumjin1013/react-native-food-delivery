@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { loginUserToken } from '../../_actions/user_actions';
 
+  
 const LoadingScreen = ({ navigation }) => {
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const LoadingScreen = ({ navigation }) => {
                 dispatch(loginUserToken(body))
                     .then(response =>{
                         if(response.payload.loginSuccess == true) {
-                            console.log(response.payload);
+                    
                             let user = {
                                 email: JSON.parse(jsonValue).email,
                                 token: response.payload.token
