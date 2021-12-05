@@ -1,46 +1,77 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, StatusBar, Modal, KeyboardAvoidingView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, StatusBar, Modal, KeyboardAvoidingView, TextInput, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Category from './Section/Category/Category';
-import Recommand from './Section/Recommand/Recommand';
 import Postcode from '@actbase/react-daum-postcode';
-
+import { updateAddress } from '../../_actions/user_actions';
 function LandingScreen({ navigation }) {
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state.user.userData && state.user.userData);
     const [modalVisible, setModalVisible] = useState(false);
     const [address, setAddress] = useState([false, '주소를 입력해주세요']);
     const [detailAddress, setDetailAddress] = useState('');
+
+    const changeAddress = () => {
+        if(address[0]){
+            setModalVisible(false);
+            setAddress([false, '주소를 입력해주세요'])
+            let body = {
+                address: address[1],
+                detail: detailAddress
+            }
+            dispatch(updateAddress(body))
+                .then(response => {
+                    if(response.payload.success){
+                        
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else {
+            Alert.alert('상세주소를 입력해주세요.');
+        }
+    }
 
     if(user.isAuth){
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>
                 <View style={styles.header} >
-                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)} style={{flexDirection: 'row', marginTop: 35,}}>
                         <Text style={styles.address}> {user.address.address} </Text>
+                        <AntDesign name="down" size={16} color="black" />
                     </TouchableOpacity>
-                    
                 </View>
-                <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible)}}>
+                <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible)}}>
                     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <View style={styles.closeBtn}>  
-                                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                            <View style={styles.button}>  
+                                <TouchableOpacity onPress={() => { setModalVisible(false), setAddress([false, '주소를 입력해주세요'])}}>
                                     <AntDesign name="close" size={24} color="black" />
                                 </TouchableOpacity>
+                                <TouchableOpacity onPress={changeAddress}>
+                                    <AntDesign name="check" size={24} color="black" />
+                                </TouchableOpacity>
                             </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput style={styles.addressTextInput} placeholder={address[1]} placeholderTextColor={address[0] ? 'black' : '#B0B0B0'} editable={false} />
+                                <TextInput style={styles.addressTextInput} placeholder="상세주소를 입력해주세요" placeholderTextColor='#B0B0B0' onChangeText={(value) => setDetailAddress(value)}/>
+                            </View>
+                            {!address[0] ?
                             <View style={styles.postcodeView}>
                                 <Postcode
-                                    style={{ width: '90%', height: '90%' }}
+                                    style={{ width: '90%', height: '70%' }}
                                     jsOptions={{ animation: true, hideMapBtn: true }}
                                     onSelected={data => {
                                     setAddress([true, data.address]);
-                                    setModalVisible(false);
                                     }}
                                 />
-                            </View>      
+                            </View>     
+                            :
+                            null} 
                         </View>
                     </KeyboardAvoidingView>
                 </Modal>
@@ -98,13 +129,11 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#96e4fa'
+        backgroundColor: 'white',
     },
     address: {
         fontSize: 15,
-        marginTop: 35,
-        fontWeight: 'bold',
-        color: 'white'
+        fontWeight: 'bold'
     },
     tab: {
         flex: 0.7,
@@ -158,7 +187,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: '92%',
-        height: '80%',
+        height: 'auto',
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -172,11 +201,25 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
-    closeBtn: {
-        justifyContent: 'flex-end'
+    button: {
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     postcodeView: {
+        alignItems: 'center',
+        marginTop: 30
+    },
+    addressTextInput: {
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        width: '100%',
+        height: 40,
+        borderRadius: 5,
+        marginTop: 10,
+        padding: 10
+    },
+    textInputContainer: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
+    }
 })
