@@ -28,9 +28,15 @@ export default function(state={},action){
         case AUTH_USER:
             return {...state, userData: action.payload }
         case LOGOUT_USER:
-            return {...state, cartDetail: null}
+            return {...state}
         case UPDATE_ADDRESS:
-            return{...state, userData: action.payload}
+            return{
+                ...state, 
+                userData: {
+                    ...state.userData,
+                    address: action.payload.address
+                }
+            }
         case UPDATE_HISTORY_STATE:
             return{...state, userData: action.payload}
         case ADD_TO_CART:
