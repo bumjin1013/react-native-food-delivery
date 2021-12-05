@@ -13,7 +13,7 @@ const SecondRegisterScreen = ({ navigation, route }) => {
     const [detailAddress, setDetailAddress] = useState('');
 
     const onPressRegister = () => {
-        if(address[0] == true) {
+        if(address[0]) {
             let body = {
                 email: route.params.email,
                 password: route.params.password,
@@ -24,8 +24,6 @@ const SecondRegisterScreen = ({ navigation, route }) => {
                   detail: detailAddress
                 }
             }
-            console.log(body);
-
             dispatch(registerUser(body))
                 .then(response => {
                     if(response.payload.success){
