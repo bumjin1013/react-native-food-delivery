@@ -36,7 +36,7 @@ const Stack = createStackNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
@@ -46,18 +46,18 @@ export default function App() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const storeData = async (value) => {
+  const storeData = async (key, value) => {
     try {
-      await AsyncStorage.setItem('@storage_Key', value)
+      await AsyncStorage.setItem(key, value)
     } catch (e) {
       // saving error
     }
   }
-  
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
-      storeData('@expo_Token', token);
+      console.log(token);
+      storeData('@notification_token', token);
     });
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -113,41 +113,16 @@ export default function App() {
   );
 }
 
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-async function sendPushNotification(expoPushToken) {
-  const message = {
-    to: expoPushToken,
-    sound: 'default',
-    title: 'Original Title',
-    body: 'And here is the body!',
-    data: { someData: 'goes here' },
-  };
-
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  });
-}
-
 async function registerForPushNotificationsAsync() {
-  console.log('register()');
   let token;
   if (Constants.isDevice) {
-    const existingStatus = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus.status;
-    if (existingStatus.status !== 'granted') {
-      console.log('existingStatus.status !== graned')
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
-      console.log('status', status.status);
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      console.log('finalStatus.status !== graned')
       alert('Failed to get push token for push notification!');
       return;
     }
@@ -167,3 +142,4 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+

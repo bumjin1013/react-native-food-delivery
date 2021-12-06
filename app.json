@@ -10,6 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "notification": {
+      "iosDisplayInForeground": true
+    },
     "plugins": [
       [
         "expo-image-picker",

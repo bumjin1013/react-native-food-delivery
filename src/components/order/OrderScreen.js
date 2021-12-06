@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
-import IMP from 'iamport-react-native';
-import Loading from './Loading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OrderScreen = ({ navigation, route }) => {
 
@@ -13,16 +12,27 @@ const OrderScreen = ({ navigation, route }) => {
     const [toRider, setToRider] = useState('조심히 안전하게 와주세요 :)');
     const [directInput, setDirectInput] = useState('');
     const [visible, setVisible] = useState(false);
+    const [token, setToken] = useState('');
 
-    const hideMenu = () => {
-        
-        setVisible(false);
-    }
+    const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('@notification_token')
+          if(value !== null) {
+            setToken(value);
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
+    
+    useEffect(() => {
+        getData();
+    }, [])
 
+    const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
 
     const payment = () => {
-
         //10000000 ~ 99999999 까지의 난수 생성
         let ranNum = Math.floor(Math.random() * 99999999 + 10000000);
         //Date.now에 난수를 더하여 중복 방지
@@ -40,6 +50,7 @@ const OrderScreen = ({ navigation, route }) => {
             storeName: user.cart[0].storeName,
             orderTime: Date(),
             orderId: orderId,
+            token: token
         }
 
         let data = {
@@ -57,7 +68,7 @@ const OrderScreen = ({ navigation, route }) => {
             // [Deprecated v1.0.3]: m_redirect_url
           };
         
-        navigation.navigate('Payment', {data: data, body: body, userId: user._id})
+        navigation.navigate('Payment', {data: data, body: body, userId: user._id, token: token})
     }
 
 
