@@ -19,7 +19,7 @@ const ReviewScreen = ({ navigation }) => {
     })
 
 
-    const renderReview = history && history.map((item, index) => {
+    const renderReview = history && history.slice(0).reverse().map((item, index) => {
 
         //주문한 메뉴 랜더링
         const renderMenu = item.menu.map((menu, index) => {
@@ -27,8 +27,6 @@ const ReviewScreen = ({ navigation }) => {
                 <Text style={styles.menuText} key={index}>{menu.name}</Text>
             )
         })
-
-        console.log(typeof(item.review[0].image));
 
         //작성한 리뷰가 있는 경우에만
         if(item.review.length !== 0) {
